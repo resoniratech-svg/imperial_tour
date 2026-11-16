@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom luxury gold gradients & styling */
+.gold-gradient {
+  background: linear-gradient(135deg, #DFBA58 0%, #C59B27 50%, #9E7B18 100%);
+}
+
+.gold-text-gradient {
+  background: linear-gradient(135deg, #F3D079 0%, #D4AF37 50%, #AA820A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.qatar-gradient {
+  background: linear-gradient(135deg, #8A1538 0%, #5F0E27 100%);
+}
+
+.sand-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F3ECE0;
+}
+::-webkit-scrollbar-thumb {
+  background: #C5A059;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8A1538;
+}

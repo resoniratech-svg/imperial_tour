@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://imperialtours.qa/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://imperialtours.qa/tours</loc><priority>0.9</priority><changefreq>daily</changefreq></url>
+  <url><loc>https://imperialtours.qa/about</loc><priority>0.7</priority></url>
+  <url><loc>https://imperialtours.qa/contact</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/faqs</loc><priority>0.7</priority></url>
+  <url><loc>https://imperialtours.qa/privacy-policy</loc><priority>0.3</priority></url>
+  <url><loc>https://imperialtours.qa/terms-conditions</loc><priority>0.3</priority></url>
+  <!-- 25 Tours -->
+  <url><loc>https://imperialtours.qa/tours/half-day-desert-safari</loc><priority>0.9</priority></url>
+  <url><loc>https://imperialtours.qa/tours/full-day-desert-safari</loc><priority>0.9</priority></url>
+  <url><loc>https://imperialtours.qa/tours/overnight-safari-tour</loc><priority>0.9</priority></url>
+  <url><loc>https://imperialtours.qa/tours/half-day-safari-with-aquarium</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/full-day-safari-with-romantic-dinner</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/night-safari-with-bonfire</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/scuba-diving</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/horse-riding-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/quad-bike-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/jet-ski-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/kayaking-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/water-sports-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/dhow-cruise-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/dhow-cruise-with-dinner-bbq</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/museum-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/doha-city-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/city-tour-with-lunch</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/city-tour-from-sea-and-land</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/city-tour-speedboat</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/grand-doha-city-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/north-of-qatar-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/cultural-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/west-coast-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/north-of-qatar-with-kayak-tour</loc><priority>0.8</priority></url>
+  <url><loc>https://imperialtours.qa/tours/camel-race-tour</loc><priority>0.8</priority></url>
+</urlset>

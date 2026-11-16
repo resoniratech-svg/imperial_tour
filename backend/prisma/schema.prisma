@@ -1,0 +1,271 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admins")
+}
+
+model TourCategory {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  image       String?
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  tours       Tour[]
+
+  @@map("tour_categories")
+}
+
+model Tour {
+  id             String   @id @default(uuid())
+  title          String
+  slug           String   @unique
+  shortDesc      String
+  description    String
+  duration       String?
+  availability   String?
+  categoryId     String
+  category       TourCategory @relation(fields: [categoryId], references: [id])
+  coverImage     String?
+  isActive       Boolean  @default(true)
+  isFeatured     Boolean  @default(false)
+  sortOrder      Int      @default(0)
+  pricingType    String   @default("per_person") // per_person, fixed_group
+  minPersons     Int      @default(1)
+  maxPersons     Int      @default(5)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  images         TourImage[]
+  pricingTiers   TourPricingTier[]
+  inclusions     TourInclusion[]
+  exclusions     TourExclusion[]
+  addons         TourAddon[]
+  itineraryItems TourItinerary[]
+  bookings       Booking[]
+
+  @@map("tours")
+}
+
+model TourImage {
+  id        String   @id @default(uuid())
+  tourId    String
+  tour      Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  url       String
+  alt       String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@map("tour_images")
+}
+
+model TourPricingTier {
+  id         String @id @default(uuid())
+  tourId     String
+  tour       Tour   @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  minPersons Int
+  maxPersons Int
+  pricePerPerson Float
+  isTotal    Boolean @default(false) // true = price is total, not per person
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("tour_pricing_tiers")
+}
+
+model TourInclusion {
+  id        String @id @default(uuid())
+  tourId    String
+  tour      Tour   @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  item      String
+  sortOrder Int    @default(0)
+
+  @@map("tour_inclusions")
+}
+
+model TourExclusion {
+  id        String  @id @default(uuid())
+  tourId    String
+  tour      Tour    @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  item      String
+  price     Float?
+  sortOrder Int     @default(0)
+
+  @@map("tour_exclusions")
+}
+
+model TourAddon {
+  id          String @id @default(uuid())
+  tourId      String
+  tour        Tour   @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  price       Float
+  priceUnit   String @default("per_person") // per_person, per_item, per_hour, flat
+  isActive    Boolean @default(true)
+  sortOrder   Int    @default(0)
+
+  bookingAddons BookingAddon[]
+
+  @@map("tour_addons")
+}
+
+model TourItinerary {
+  id        String @id @default(uuid())
+  tourId    String
+  tour      Tour   @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  title     String
+  items     String // JSON array of items
+  sortOrder Int    @default(0)
+
+  @@map("tour_itineraries")
+}
+
+model Booking {
+  id              String   @id @default(uuid())
+  bookingRef      String   @unique
+  tourId          String
+  tour            Tour     @relation(fields: [tourId], references: [id])
+  travelDate      DateTime
+  numberOfGuests  Int
+  pricePerPerson  Float
+  isFixedPrice    Boolean  @default(false)
+  subtotal        Float
+  addonsTotal     Float    @default(0)
+  totalAmount     Float
+  status          String   @default("pending") // pending, approved, rejected, cancelled, completed
+  paymentStatus   String   @default("unpaid") // unpaid, paid, refunded
+  adminNotes      String?
+  
+  // Customer details
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  customerCountry String?
+  hotelName       String?
+  pickupLocation  String?
+  specialRequests String?
+
+  // Pricing snapshot
+  pricingSnapshot String? // JSON snapshot of pricing at booking time
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  addons          BookingAddon[]
+  statusHistory   BookingStatusHistory[]
+  payment         Payment?
+
+  @@map("bookings")
+}
+
+model BookingAddon {
+  id        String  @id @default(uuid())
+  bookingId String
+  booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  addonId   String
+  addon     TourAddon @relation(fields: [addonId], references: [id])
+  quantity  Int     @default(1)
+  unitPrice Float
+  total     Float
+
+  @@map("booking_addons")
+}
+
+model BookingStatusHistory {
+  id        String   @id @default(uuid())
+  bookingId String
+  booking   Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  status    String
+  notes     String?
+  changedBy String?
+  createdAt DateTime @default(now())
+
+  @@map("booking_status_history")
+}
+
+model Payment {
+  id            String   @id @default(uuid())
+  bookingId     String   @unique
+  booking       Booking  @relation(fields: [bookingId], references: [id])
+  amount        Float
+  currency      String   @default("QAR")
+  method        String?
+  transactionId String?
+  status        String   @default("pending") // pending, completed, failed, refunded
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("payments")
+}
+
+model Testimonial {
+  id         String   @id @default(uuid())
+  name       String
+  country    String?
+  rating     Int      @default(5)
+  comment    String
+  tourName   String?
+  avatar     String?
+  isApproved Boolean  @default(false)
+  isFeatured Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("testimonials")
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("contact_messages")
+}
+
+model WebsiteSetting {
+  id    String @id @default(uuid())
+  key   String @unique
+  value String
+  group String @default("general")
+
+  @@map("website_settings")
+}
+
+model GalleryImage {
+  id          String   @id @default(uuid())
+  url         String
+  title       String?
+  description String?
+  category    String?
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@map("gallery_images")
+}
