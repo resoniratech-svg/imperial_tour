@@ -225,7 +225,7 @@ export const TourDetailPage: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
-                    {tour.pricingTiers.map((tier) => {
+                    {(tour.pricingTiers || []).map((tier) => {
                       const isSingle = tier.minPersons === tier.maxPersons;
                       const label = isSingle
                         ? `${tier.minPersons} Person`
@@ -536,7 +536,7 @@ export const TourDetailPage: React.FC = () => {
               </h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {similarTours.map((simTour) => (
+              {(similarTours || []).map((simTour) => (
                 <TourCard key={simTour.id} tour={simTour} />
               ))}
             </div>

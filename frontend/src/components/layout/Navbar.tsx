@@ -149,7 +149,7 @@ export const Navbar: React.FC = () => {
                     View All 25 Tours & Packages →
                   </Link>
                   <div className="space-y-1 text-xs">
-                    {categories.map((cat) => (
+                    {(categories || []).map((cat) => (
                       <Link
                         key={cat.id}
                         to={`/tours/category/${cat.slug}`}
@@ -240,7 +240,7 @@ export const Navbar: React.FC = () => {
                 >
                   All Tours (25 Packages)
                 </Link>
-                {categories.map((cat) => (
+                {(categories || []).map((cat) => (
                   <Link
                     key={cat.id}
                     to={`/tours/category/${cat.slug}`}

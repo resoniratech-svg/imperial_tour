@@ -34,7 +34,7 @@ export const AllToursPage: React.FC = () => {
   }, [categorySlug]);
 
   // Filter tours
-  const filteredTours = tours.filter((tour: Tour) => {
+  const filteredTours = (tours || []).filter((tour: Tour) => {
     // Category match
     if (selectedCategory && tour.category?.slug !== selectedCategory) {
       return false;
@@ -136,7 +136,7 @@ export const AllToursPage: React.FC = () => {
             >
               All Packages (25)
             </button>
-            {categories.map((cat) => (
+            {(categories || []).map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.slug)}

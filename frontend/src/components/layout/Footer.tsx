@@ -142,7 +142,7 @@ export const Footer: React.FC = () => {
               Tour Categories
             </h4>
             <ul className="space-y-2 text-sm">
-              {categories.slice(0, 6).map((cat) => (
+              {(categories || []).slice(0, 6).map((cat) => (
                 <li key={cat.id}>
                   <Link
                     to={`/tours/category/${cat.slug}`}

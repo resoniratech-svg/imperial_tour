@@ -22,7 +22,9 @@ export const HomePage: React.FC = () => {
   }, [dispatch]);
 
   // Fallback featured tours if none marked
-  const displayFeatured = featuredTours.length > 0 ? featuredTours.slice(0, 6) : tours.slice(0, 6);
+  const displayFeatured = (featuredTours && featuredTours.length > 0)
+    ? featuredTours.slice(0, 6)
+    : (tours || []).slice(0, 6);
 
   // Gallery items
   const galleryItems = [
@@ -192,7 +194,7 @@ export const HomePage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((cat) => (
+          {(categories || []).map((cat) => (
             <Link
               key={cat.id}
               to={`/tours/category/${cat.slug}`}
@@ -256,7 +258,7 @@ export const HomePage: React.FC = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {displayFeatured.map((tour) => (
+              {(displayFeatured || []).map((tour) => (
                 <TourCard key={tour.id} tour={tour} />
               ))}
             </div>

@@ -40,7 +40,9 @@ const settingsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSettings.fulfilled, (state, action) => {
-      state.settings = { ...state.settings, ...action.payload };
+      if (action.payload && typeof action.payload === 'object' && !Array.isArray(action.payload)) {
+        state.settings = { ...state.settings, ...action.payload };
+      }
     });
   },
 });

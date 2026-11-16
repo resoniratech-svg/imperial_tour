@@ -19,15 +19,25 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Response interceptor for handling 401s
+// Response interceptor for handling 401s and HTML responses from SPA redirects
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // If response is HTML string (e.g. redirected to index.html on Netlify when backend is unconfigured), reject
+    if (typeof response.data === 'string' && response.data.trim().toLowerCase().startsWith('<!doctype')) {
+      return Promise.reject(new Error('Backend API not reachable (received HTML).'));
+    }
+    return response;
+  },
   (error) => {
     if (error.response?.status === 401) {
       // Clear token if expired
       if (window.location.pathname.startsWith('/admin') && window.location.pathname !== '/admin/login') {
-        localStorage.removeItem('itq_admin_token');
-        localStorage.removeItem('itq_admin_user');
+        try {
+          localStorage.removeItem('itq_admin_token');
+          localStorage.removeItem('itq_admin_user');
+        } catch {
+          // ignore
+        }
         window.location.href = '/admin/login';
       }
     }
@@ -236,8 +246,12 @@ export const authService = {
     return res.data;
   },
   getCurrentUser: (): AdminUser | null => {
-    const user = localStorage.getItem('itq_admin_user');
-    return user ? JSON.parse(user) : null;
+    try {
+      const user = localStorage.getItem('itq_admin_user');
+      return user ? JSON.parse(user) : null;
+    } catch {
+      return null;
+    }
   },
   isAuthenticated: (): boolean => {
     return !!localStorage.getItem('itq_admin_token');
