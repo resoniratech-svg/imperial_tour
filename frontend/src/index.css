@@ -8,13 +8,28 @@
   }
 }
 
-/* Custom luxury gold gradients & styling */
+/* Custom luxury yellow gradients & styling */
 .gold-gradient {
-  background: linear-gradient(135deg, #DFBA58 0%, #C59B27 50%, #9E7B18 100%);
+  background: linear-gradient(135deg, #FDE047 0%, #FACC15 50%, #EAB308 100%);
+}
+
+@keyframes cardFadeIn {
+  0% {
+    opacity: 0.35;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-card-fade {
+  animation: cardFadeIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .gold-text-gradient {
-  background: linear-gradient(135deg, #F3D079 0%, #D4AF37 50%, #AA820A 100%);
+  background: linear-gradient(135deg, #FEF08A 0%, #FACC15 50%, #EAB308 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

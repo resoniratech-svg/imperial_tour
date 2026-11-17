@@ -57,7 +57,7 @@ export const AdminLayout: React.FC = () => {
         <div>
           {/* Logo Bar */}
           <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-            <Logo variant="light" showTagline={false} />
+            <Logo variant="light" showTagline={false} size="sm" />
             <button
               onClick={() => setSidebarOpen(false)}
               className="lg:hidden text-slate-400 hover:text-white"

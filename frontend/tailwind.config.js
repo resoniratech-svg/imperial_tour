@@ -13,16 +13,16 @@ export default {
           'maroon-light': '#A51E45',
         },
         gold: {
-          50: '#FDFBF7',
-          100: '#FAF5EA',
-          200: '#F2E5C8',
-          300: '#E7D19E',
-          400: '#DCBC72',
-          500: '#D4AF37', // Royal Gold
-          600: '#B8860B', // Dark Goldenrod
-          700: '#8E6808',
-          800: '#684C06',
-          900: '#4A3604',
+          50: '#FEFCE8',
+          100: '#FEF9C3',
+          200: '#FEF08A',
+          300: '#FDE047',
+          400: '#FACC15', // Vibrant bright sunny yellow
+          500: '#EAB308', // Core rich yellow
+          600: '#CA8A04', // Deep golden yellow
+          700: '#A16207',
+          800: '#854D0E',
+          900: '#713F12',
         },
         sand: {
           50: '#FDFBF7',
@@ -40,7 +40,7 @@ export default {
       boxShadow: {
         'luxury': '0 10px 30px -5px rgba(138, 21, 56, 0.08), 0 8px 10px -6px rgba(212, 175, 55, 0.05)',
         'luxury-hover': '0 20px 40px -10px rgba(138, 21, 56, 0.15), 0 12px 18px -6px rgba(212, 175, 55, 0.12)',
-        'gold-glow': '0 0 25px rgba(212, 175, 55, 0.25)',
+        'gold-glow': '0 0 25px rgba(250, 204, 21, 0.45)',
       },
     },
   },
