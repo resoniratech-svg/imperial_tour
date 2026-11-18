@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
   Clock, Calendar, Users, CheckCircle2, XCircle, ShieldCheck,
-  MapPin, Share2, ArrowRight, MessageCircle, AlertCircle, Info, Sparkles
+  MapPin, Share2, ArrowRight, MessageCircle, AlertCircle, Info, Sparkles,
+  Maximize2, X
 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
@@ -25,6 +26,7 @@ export const TourDetailPage: React.FC = () => {
     new Date(Date.now() + 86400000).toISOString().split('T')[0]
   );
   const [selectedAddons, setSelectedAddons] = useState<Record<string, number>>({});
+  const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (slug) {
@@ -135,51 +137,88 @@ export const TourDetailPage: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Tour Cover Image & Hero Section */}
-        <div className="relative h-[420px] sm:h-[500px] rounded-3xl overflow-hidden shadow-2xl mb-10 bg-slate-950">
-          <img
-            src={tour.coverImage || 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=1600'}
-            alt={tour.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
-
-          {/* Hero details overlay */}
-          <div className="absolute bottom-8 left-6 right-6 sm:left-10 sm:right-10 text-white flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="max-w-2xl">
+        {/* Tour Title & Meta Header - Positioned cleanly ABOVE the image so the photo is 100% visible */}
+        <div className="mb-6 space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-2.5">
               {tour.category && (
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-gold-500/20 text-gold-400 border border-gold-500/40 backdrop-blur-md mb-3">
+                <Link
+                  to={`/tours/category/${tour.category.slug}`}
+                  className="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-qatar-maroon/10 hover:bg-qatar-maroon/20 text-qatar-maroon border border-qatar-maroon/25 transition"
+                >
                   {tour.category.name}
+                </Link>
+              )}
+              {tour.duration && (
+                <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
+                  <Clock className="w-3.5 h-3.5 text-qatar-maroon" />
+                  <span>{tour.duration}</span>
                 </span>
               )}
-              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
-                {tour.title}
-              </h1>
-              <p className="text-xs sm:text-sm text-slate-300 mt-2 font-light">
-                {tour.shortDesc}
-              </p>
+              {tour.availability && (
+                <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
+                  <Calendar className="w-3.5 h-3.5 text-qatar-maroon" />
+                  <span>{tour.availability}</span>
+                </span>
+              )}
+              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
+                <Users className="w-3.5 h-3.5 text-amber-600" />
+                <span>{tour.minPersons}–{tour.maxPersons} Guests</span>
+              </span>
             </div>
 
-            {/* Quick Badges */}
-            <div className="flex flex-wrap items-center gap-3">
-              {tour.duration && (
-                <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-xs font-medium">
-                  <Clock className="w-3.5 h-3.5 text-gold-400" />
-                  <span>{tour.duration}</span>
-                </div>
-              )}
-              {tour.availability && (
-                <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-xs font-medium">
-                  <Calendar className="w-3.5 h-3.5 text-gold-400" />
-                  <span>{tour.availability}</span>
-                </div>
-              )}
-              <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-xs font-medium">
-                <Users className="w-3.5 h-3.5 text-gold-400" />
-                <span>{tour.minPersons}–{tour.maxPersons} Guests</span>
-              </div>
-            </div>
+            <button
+              onClick={() => {
+                if (navigator.share) {
+                  navigator.share({ title: tour.title, url: window.location.href });
+                } else {
+                  navigator.clipboard.writeText(window.location.href);
+                  alert('Tour link copied to clipboard!');
+                }
+              }}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-slate-300 hover:border-slate-400 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition"
+            >
+              <Share2 className="w-3.5 h-3.5" />
+              <span>Share</span>
+            </button>
           </div>
+
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight">
+            {tour.title}
+          </h1>
+
+          <p className="text-sm sm:text-base text-slate-600 max-w-4xl leading-relaxed">
+            {tour.shortDesc}
+          </p>
+        </div>
+
+        {/* Dedicated Tour Photo Showcase - Shows the FULL uncropped photo with ambient glow */}
+        <div className="relative rounded-3xl overflow-hidden shadow-2xl mb-10 bg-slate-950 border border-slate-200/80 group">
+          {/* Ambient blurred backdrop so any image aspect ratio fits naturally */}
+          <img
+            src={tour.coverImage || '/tours/half-day-desert-safari.jpg'}
+            alt={tour.title}
+            className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-35 scale-110 pointer-events-none"
+          />
+
+          {/* Main uncropped full photo display */}
+          <div className="relative w-full max-h-[580px] min-h-[340px] sm:min-h-[440px] flex items-center justify-center p-2 sm:p-4">
+            <img
+              src={tour.coverImage || '/tours/half-day-desert-safari.jpg'}
+              alt={tour.title}
+              onClick={() => setLightboxOpen(true)}
+              className="w-full max-h-[540px] object-contain rounded-2xl shadow-xl cursor-zoom-in transition-transform duration-500 group-hover:scale-[1.01]"
+            />
+          </div>
+
+          {/* View Full Photo Action Button */}
+          <button
+            onClick={() => setLightboxOpen(true)}
+            className="absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-2 rounded-full bg-slate-950/85 hover:bg-slate-950 text-white text-xs font-bold uppercase tracking-wider backdrop-blur-md border border-white/20 shadow-xl transition transform hover:scale-105"
+          >
+            <Maximize2 className="w-4 h-4 text-yellow-400" />
+            <span>View Full Photo</span>
+          </button>
         </div>
 
         {/* Content Layout: Left 2 Cols (Details, Pricing Table, Itinerary), Right 1 Col (Dynamic Booking Widget) */}
@@ -543,6 +582,28 @@ export const TourDetailPage: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Fullscreen Lightbox Modal */}
+      {lightboxOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
+          onClick={() => setLightboxOpen(false)}
+        >
+          <button
+            onClick={() => setLightboxOpen(false)}
+            className="absolute top-5 right-5 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition z-50 shadow-lg"
+            title="Close"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <img
+            src={tour.coverImage || '/tours/half-day-desert-safari.jpg'}
+            alt={tour.title}
+            className="max-w-[95vw] max-h-[92vh] object-contain rounded-xl shadow-2xl select-none"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 };
