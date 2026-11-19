@@ -56,7 +56,7 @@ export const TourDetailPage: React.FC = () => {
     );
   }
 
-  if (error || !tour) {
+  if (!tour) {
     return (
       <div className="min-h-screen pt-32 pb-20 text-center max-w-xl mx-auto px-4">
         <AlertCircle className="w-16 h-16 text-rose-500 mx-auto mb-4" />

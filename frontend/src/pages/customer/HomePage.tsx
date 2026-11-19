@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Compass, ArrowRight, ShieldCheck, Award, HeartHandshake,
-  Car, Users, Headphones, Star, CheckCircle2, Sparkles, MapPin
+  Car, Users, Headphones, Star, CheckCircle2, Sparkles, MapPin,
+  ChevronDown, ChevronUp
 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
@@ -15,6 +16,8 @@ export const HomePage: React.FC = () => {
     (state: RootState) => state.tours
   );
 
+  const [showAllTours, setShowAllTours] = useState(false);
+
   useEffect(() => {
     dispatch(fetchPublicTours({}));
     dispatch(fetchCategories());
@@ -24,6 +27,10 @@ export const HomePage: React.FC = () => {
   const displayFeatured = (featuredTours && featuredTours.length > 0)
     ? featuredTours.slice(0, 6)
     : (tours || []).slice(0, 6);
+
+  const visibleTours = showAllTours
+    ? (tours && tours.length > 0 ? tours : displayFeatured)
+    : displayFeatured;
 
   // Gallery items - Real authentic Imperial Tours Qatar photography
   const galleryItems = [
@@ -271,9 +278,34 @@ export const HomePage: React.FC = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {(displayFeatured || []).map((tour) => (
+              {(visibleTours || []).map((tour) => (
                 <TourCard key={tour.id} tour={tour} />
               ))}
+            </div>
+          )}
+
+          {/* View More / Show Less Button */}
+          {!loading && (tours || []).length > 6 && (
+            <div className="mt-12 text-center">
+              {!showAllTours ? (
+                <button
+                  type="button"
+                  onClick={() => setShowAllTours(true)}
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-extrabold text-xs uppercase tracking-wider rounded-full shadow-lg hover:shadow-yellow-400/50 transition transform hover:-translate-y-0.5"
+                >
+                  <span>View More</span>
+                  <ChevronDown className="w-4 h-4 stroke-[2.5]" />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setShowAllTours(false)}
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-yellow-400 font-extrabold text-xs uppercase tracking-wider rounded-full shadow-lg transition transform hover:-translate-y-0.5"
+                >
+                  <span>Show Less</span>
+                  <ChevronUp className="w-4 h-4 stroke-[2.5]" />
+                </button>
+              )}
             </div>
           )}
         </div>

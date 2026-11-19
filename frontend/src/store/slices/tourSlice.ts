@@ -105,7 +105,6 @@ const tourSlice = createSlice({
       })
       .addCase(fetchTourBySlug.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Failed to fetch tour';
         const slug = action.meta.arg;
         const fallback = FALLBACK_TOURS.find((t) => t.slug === slug);
         if (fallback) {
@@ -113,6 +112,9 @@ const tourSlice = createSlice({
           state.similarTours = FALLBACK_TOURS.filter(
             (t) => t.categoryId === fallback.categoryId && t.id !== fallback.id
           ).slice(0, 3);
+          state.error = null; // Clear error so fallback tour displays smoothly without showing 'Tour Not Found'
+        } else {
+          state.error = action.error.message || 'Failed to fetch tour';
         }
       });
   },
