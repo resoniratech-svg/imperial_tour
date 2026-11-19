@@ -36,7 +36,7 @@ export const AboutUsPage: React.FC = () => {
               Our Heritage & Vision
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
-              Curating Qatar’s Most Luxurious & Authentic Adventures
+              Curating Qatar’s Most Luxurious & Authentic Experiences
             </h2>
             <div className="w-20 h-1 bg-gold-500 rounded-full" />
             <p className="text-sm text-slate-600 leading-relaxed">

@@ -22,6 +22,7 @@ export const AllToursPage: React.FC = () => {
   const [sortBy, setSortBy] = useState<'recommended' | 'price-asc' | 'price-desc' | 'duration'>('recommended');
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(fetchPublicTours({}));
     dispatch(fetchCategories());
   }, [dispatch]);

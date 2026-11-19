@@ -70,20 +70,6 @@ export const FALLBACK_CATEGORIES: TourCategory[] = ([
     "_count": {
       "tours": 5
     }
-  },
-  {
-    "id": "76c9876f-910d-4e9e-bec3-321a56ea14f5",
-    "name": "Adventure Activities",
-    "slug": "adventure-activities",
-    "description": "Adrenaline-pumping adventure experiences",
-    "image": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800",
-    "sortOrder": 6,
-    "isActive": true,
-    "createdAt": "2026-11-16T10:20:01.995Z",
-    "updatedAt": "2026-11-16T11:56:36.671Z",
-    "_count": {
-      "tours": 0
-    }
   }
 ] as any) as TourCategory[];
 
@@ -2814,7 +2800,7 @@ export const FALLBACK_TOURS: Tour[] = ([
     "duration": null,
     "availability": null,
     "categoryId": "9044e75a-0ed8-4f08-b4c3-41313407a5c7",
-    "coverImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200",
+    "coverImage": "/tours/west-coast-tour.jpg",
     "isActive": true,
     "isFeatured": false,
     "sortOrder": 23,

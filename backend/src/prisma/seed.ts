@@ -27,7 +27,6 @@ async function main() {
     { name: 'Cruise Tours', slug: 'cruise-tours', description: 'Luxurious dhow cruise experiences along Qatar\'s coastline', sortOrder: 3, image: 'https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=800' },
     { name: 'City Tours', slug: 'city-tours', description: 'Discover the modern marvels and heritage of Doha', sortOrder: 4, image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=800' },
     { name: 'Cultural & Historical Tours', slug: 'cultural-historical-tours', description: 'Immerse yourself in Qatar\'s rich culture and heritage', sortOrder: 5, image: 'https://images.unsplash.com/photo-1578895101408-1a36b834405b?w=800' },
-    { name: 'Adventure Activities', slug: 'adventure-activities', description: 'Adrenaline-pumping adventure experiences', sortOrder: 6, image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800' },
   ];
 
   const categoryMap: Record<string, string> = {};
@@ -710,7 +709,7 @@ async function main() {
       shortDesc: 'Explore Qatar\'s scenic western coastline with stunning views and cultural stops.',
       description: 'Discover the natural beauty and cultural treasures along Qatar\'s western coast. This scenic tour takes you through picturesque coastal landscapes, traditional fishing villages, and stunning viewpoints overlooking the Arabian Gulf. An English-speaking guide shares fascinating insights about the region\'s history and ecology.',
       categoryId: categoryMap['city-tours'],
-      coverImage: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200',
+      coverImage: '/tours/west-coast-tour.jpg',
       sortOrder: 23,
       pricingType: 'per_person',
       minPersons: 1,

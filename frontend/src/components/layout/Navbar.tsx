@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  Menu, X, Search, Globe, ChevronDown, Compass, ShieldCheck,
+  Menu, X, Globe, ChevronDown, Compass, ShieldCheck,
   Calendar, Phone, MessageSquare
 } from 'lucide-react';
 import { Logo } from '../common/Logo';
@@ -13,9 +13,6 @@ export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [toursDropdownOpen, setToursDropdownOpen] = useState(false);
-  const [thingsToDoOpen, setThingsToDoOpen] = useState(false);
-  const [searchModalOpen, setSearchModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
 
   const location = useLocation();
   const dispatch = useDispatch();
@@ -36,20 +33,11 @@ export const Navbar: React.FC = () => {
   useEffect(() => {
     setMobileMenuOpen(false);
     setToursDropdownOpen(false);
-    setThingsToDoOpen(false);
   }, [location.pathname]);
 
   const navBg = isHome && !isScrolled
     ? 'bg-gradient-to-r from-[#FFF1B4] via-[#FED0D2] to-[#FFB0F2] backdrop-blur-md border-b border-[#fed0d2]/70 shadow-sm'
     : 'bg-gradient-to-r from-[#FFF1B4] via-[#FED0D2] to-[#FFB0F2] backdrop-blur-md border-b border-[#fed0d2] shadow-md';
-
-  const thingsToDoItems = [
-    { name: 'Desert Dune Bashing', slug: 'desert-safari', desc: '4x4 thrill in the singing dunes' },
-    { name: 'Traditional Dhow Cruises', slug: 'cruise-tours', desc: 'Sunset & BBQ sailing on Doha bay' },
-    { name: 'Mangrove Kayaking', slug: 'water-sports-adventure', desc: 'Paddle through Al Thakira mangroves' },
-    { name: 'Museums & Heritage', slug: 'cultural-historical-tours', desc: 'NMOQ, MIA & historic forts' },
-    { name: 'Doha City Landmarks', slug: 'city-tours', desc: 'Katara, The Pearl, Lusail & Souq' },
-  ];
 
   return (
     <>
@@ -99,37 +87,6 @@ export const Navbar: React.FC = () => {
             >
               Home
             </Link>
-
-            {/* Things To Do Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setThingsToDoOpen(true)}
-              onMouseLeave={() => setThingsToDoOpen(false)}
-            >
-              <button className="flex items-center gap-1.5 text-slate-800 hover:text-qatar-maroon font-semibold transition py-2">
-                <span>Things To Do</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${thingsToDoOpen ? 'rotate-180 text-qatar-maroon' : ''}`} />
-              </button>
-
-              {thingsToDoOpen && (
-                <div className="absolute top-full left-0 w-80 bg-white/95 backdrop-blur-md border border-[#fed0d2] rounded-xl shadow-2xl p-3 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="space-y-1">
-                    {thingsToDoItems.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={`/tours/category/${item.slug}`}
-                        className="block p-2.5 rounded-lg hover:bg-gradient-to-r hover:from-[#FFF1B4]/40 hover:to-[#FFB0F2]/20 group transition"
-                      >
-                        <div className="text-slate-900 font-semibold group-hover:text-qatar-maroon transition">
-                          {item.name}
-                        </div>
-                        <div className="text-xs text-slate-500">{item.desc}</div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
 
             {/* Tours Dropdown */}
             <div
@@ -186,14 +143,6 @@ export const Navbar: React.FC = () => {
 
           {/* Right Action Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <button
-              onClick={() => setSearchModalOpen(true)}
-              className="p-2.5 text-slate-700 hover:text-qatar-maroon hover:bg-white/40 rounded-full transition"
-              title="Search Tours"
-            >
-              <Search className="w-5 h-5" />
-            </button>
-
             <Link
               to="/tours"
               className="flex items-center gap-2 px-6 py-2.5 bg-slate-950 hover:bg-slate-900 text-yellow-400 font-bold text-xs uppercase tracking-wider rounded-full shadow-lg hover:shadow-slate-950/30 transition transform hover:-translate-y-0.5"
@@ -204,12 +153,6 @@ export const Navbar: React.FC = () => {
 
           {/* Mobile hamburger button */}
           <div className="flex items-center gap-2 lg:hidden">
-            <button
-              onClick={() => setSearchModalOpen(true)}
-              className="p-2 text-slate-700 hover:text-qatar-maroon"
-            >
-              <Search className="w-5 h-5" />
-            </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-slate-900 hover:text-qatar-maroon transition"
@@ -291,45 +234,6 @@ export const Navbar: React.FC = () => {
           </div>
         )}
       </header>
-
-      {/* Quick Search Modal */}
-      {searchModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-start justify-center pt-24 px-4">
-          <div className="bg-gradient-to-r from-[#FFF1B4] via-[#FED0D2] to-[#FFB0F2] border border-[#fed0d2] rounded-2xl max-w-xl w-full p-6 shadow-2xl relative">
-            <button
-              onClick={() => setSearchModalOpen(false)}
-              className="absolute top-4 right-4 text-slate-600 hover:text-slate-950"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            <h3 className="font-serif text-xl font-bold text-slate-950 mb-2">Search Qatar Tours</h3>
-            <p className="text-xs text-slate-700 mb-4 font-medium">Find desert safaris, dhow cruises, city tours & water sports</p>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setSearchModalOpen(false);
-                window.location.href = `/tours?search=${encodeURIComponent(searchQuery)}`;
-              }}
-              className="flex gap-2"
-            >
-              <input
-                type="text"
-                placeholder="E.g. Desert Safari, Kayaking, Dhow Cruise..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                autoFocus
-                className="flex-1 bg-white/90 border border-amber-300 focus:border-qatar-maroon rounded-lg px-4 py-3 text-slate-900 text-sm outline-none shadow-xs"
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 bg-slate-950 hover:bg-slate-900 text-yellow-400 font-bold text-sm rounded-lg transition shadow-md"
-              >
-                Search
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </>
   );
 };

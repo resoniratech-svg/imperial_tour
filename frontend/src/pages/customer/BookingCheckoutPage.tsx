@@ -1,14 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom';
 import {
   Calendar, Users, ShieldCheck, MapPin, Phone, Mail, User,
-  Globe, AlertCircle, ArrowRight, CheckCircle2, FileText, Sparkles
+  Globe, AlertCircle, ArrowRight, CheckCircle2, FileText, Sparkles,
+  ChevronsUpDown
 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { fetchTourBySlug } from '../../store/slices/tourSlice';
 import { calculateTourPrice, formatCurrency } from '../../utils/pricing';
 import { bookingService } from '../../services/api';
+
+const AGE_OPTIONS = Array.from({ length: 85 }, (_, i) => `${i + 1} Years`);
+
+const formatDateDisplay = (dateStr: string) => {
+  if (!dateStr) return '';
+  const parts = dateStr.split('-');
+  if (parts.length !== 3) return dateStr;
+  const year = Number(parts[0]);
+  const month = Number(parts[1]) - 1;
+  const day = Number(parts[2]);
+  const d = new Date(year, month, day);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+};
+
+const getInitialDates = () => {
+  const now = new Date();
+  const start = new Date(now);
+  start.setDate(now.getDate() + 7);
+  const end = new Date(now);
+  end.setDate(now.getDate() + 14);
+
+  const formatISO = (d: Date) => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  };
+
+  return {
+    start: formatISO(start),
+    end: formatISO(end),
+  };
+};
 
 export const BookingCheckoutPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -19,12 +53,46 @@ export const BookingCheckoutPage: React.FC = () => {
   const { currentTour: tour, loading } = useSelector((state: RootState) => state.tours);
 
   // Form states initialized from URL or defaults
+  const initialDates = getInitialDates();
+
+  const [startDate, setStartDate] = useState<string>(
+    searchParams.get('startDate') || searchParams.get('date') || initialDates.start
+  );
+  const [endDate, setEndDate] = useState<string>(
+    searchParams.get('endDate') || initialDates.end
+  );
   const [guestsCount, setGuestsCount] = useState<number>(
-    parseInt(searchParams.get('guests') || '2', 10)
+    parseInt(searchParams.get('guests') || searchParams.get('passengers') || '2', 10)
   );
-  const [travelDate, setTravelDate] = useState<string>(
-    searchParams.get('date') || new Date(Date.now() + 86400000).toISOString().split('T')[0]
-  );
+
+  const [paxAges, setPaxAges] = useState<string[]>(() => {
+    const fromParam = searchParams.get('paxAges');
+    if (fromParam) {
+      return fromParam.split(',');
+    }
+    const initialGuests = parseInt(searchParams.get('guests') || searchParams.get('passengers') || '2', 10);
+    return Array.from({ length: Math.max(1, initialGuests) }, () => '18 Years');
+  });
+
+  const startDateRef = useRef<HTMLInputElement>(null);
+  const endDateRef = useRef<HTMLInputElement>(null);
+
+  const handlePassengersChange = (newCount: number) => {
+    const count = Math.max(1, Math.min(10, newCount));
+    setGuestsCount(count);
+    setPaxAges((prev) => {
+      const next = [...prev];
+      if (count > next.length) {
+        while (next.length < count) {
+          next.push('18 Years');
+        }
+      } else {
+        next.splice(count);
+      }
+      return next;
+    });
+  };
+
   const [selectedAddons, setSelectedAddons] = useState<Record<string, number>>(() => {
     try {
       const param = searchParams.get('addons');
@@ -102,9 +170,17 @@ export const BookingCheckoutPage: React.FC = () => {
 
     try {
       setSubmitting(true);
+      const combinedRequests = [
+        `Dates: ${formatDateDisplay(startDate)} to ${formatDateDisplay(endDate)}`,
+        `Passengers: ${guestsCount} (${paxAges.map((a, i) => `Pax ${i + 1}: ${a}`).join(', ')})`,
+        specialRequests ? `Special Requests: ${specialRequests}` : '',
+      ]
+        .filter(Boolean)
+        .join(' | ');
+
       const res = await bookingService.createBooking({
         tourId: tour.id,
-        travelDate,
+        travelDate: startDate,
         numberOfGuests: guestsCount,
         customerName: fullName,
         customerEmail: email,
@@ -112,7 +188,7 @@ export const BookingCheckoutPage: React.FC = () => {
         customerCountry: country || undefined,
         hotelName: hotelName || undefined,
         pickupLocation: pickupLocation || undefined,
-        specialRequests: specialRequests || undefined,
+        specialRequests: combinedRequests,
         addons: structuredAddons.length > 0 ? structuredAddons : undefined,
       });
 
@@ -181,38 +257,108 @@ export const BookingCheckoutPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <div>
-                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5 mb-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-gold-600" />
-                    Travel Date
-                  </label>
-                  <input
-                    type="date"
-                    value={travelDate}
-                    min={new Date().toISOString().split('T')[0]}
-                    onChange={(e) => setTravelDate(e.target.value)}
-                    required
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs text-slate-800 outline-none focus:border-gold-500 font-medium"
-                  />
-                </div>
+              {/* Selected Schedule & Passenger Demographics */}
+              <div className="pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 items-start p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  {/* Start Date */}
+                  <div className="space-y-1 text-left">
+                    <label className="text-xs font-semibold text-[#601934] block">
+                      Start Date
+                    </label>
+                    <div
+                      onClick={() => startDateRef.current?.showPicker?.() || startDateRef.current?.focus()}
+                      className="relative flex items-center justify-between w-full bg-white text-slate-800 border border-slate-300 rounded px-3 py-2 text-xs font-medium shadow-sm cursor-pointer hover:border-[#601934] transition"
+                    >
+                      <span className="text-slate-800">
+                        {formatDateDisplay(startDate)}
+                      </span>
+                      <Calendar className="w-4 h-4 text-slate-600 shrink-0 pointer-events-none" />
+                      <input
+                        ref={startDateRef}
+                        type="date"
+                        value={startDate}
+                        min={new Date().toISOString().split('T')[0]}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                      />
+                    </div>
+                  </div>
 
-                <div>
-                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5 mb-1.5">
-                    <Users className="w-3.5 h-3.5 text-gold-600" />
-                    Number of Participants
-                  </label>
-                  <select
-                    value={guestsCount}
-                    onChange={(e) => setGuestsCount(parseInt(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs text-slate-800 outline-none focus:border-gold-500 font-medium"
-                  >
-                    {[1, 2, 3, 4, 5, 6].map((num) => (
-                      <option key={num} value={num}>
-                        {num} {num === 1 ? 'Guest' : 'Guests'}
-                      </option>
-                    ))}
-                  </select>
+                  {/* End Date */}
+                  <div className="space-y-1 text-left">
+                    <label className="text-xs font-semibold text-[#601934] block">
+                      End Date
+                    </label>
+                    <div
+                      onClick={() => endDateRef.current?.showPicker?.() || endDateRef.current?.focus()}
+                      className="relative flex items-center justify-between w-full bg-white text-slate-800 border border-slate-300 rounded px-3 py-2 text-xs font-medium shadow-sm cursor-pointer hover:border-[#601934] transition"
+                    >
+                      <span className="text-slate-800">
+                        {formatDateDisplay(endDate)}
+                      </span>
+                      <Calendar className="w-4 h-4 text-slate-600 shrink-0 pointer-events-none" />
+                      <input
+                        ref={endDateRef}
+                        type="date"
+                        value={endDate}
+                        min={startDate || new Date().toISOString().split('T')[0]}
+                        onChange={(e) => setEndDate(e.target.value)}
+                        className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Number of Passengers */}
+                  <div className="space-y-1 text-left">
+                    <label className="text-xs font-semibold text-[#601934] block">
+                      Number of Passengers:
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={guestsCount}
+                        onChange={(e) => handlePassengersChange(Number(e.target.value))}
+                        className="w-full bg-white text-slate-800 border border-slate-300 rounded px-3 py-2 text-xs font-medium shadow-sm outline-none focus:border-[#601934] focus:ring-1 focus:ring-[#601934] cursor-pointer appearance-none pr-7"
+                      >
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                          <option key={num} value={num}>
+                            {num}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-600">
+                        <ChevronsUpDown className="w-3.5 h-3.5 text-slate-500" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dynamic Pax Ages */}
+                  {paxAges.map((age, idx) => (
+                    <div key={`pax-age-${idx}`} className="space-y-1 text-left">
+                      <label className="text-xs font-semibold text-[#601934] block">
+                        {`Pax ${idx + 1} Age:`}
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={age}
+                          onChange={(e) => {
+                            const newAges = [...paxAges];
+                            newAges[idx] = e.target.value;
+                            setPaxAges(newAges);
+                          }}
+                          className="w-full bg-white text-slate-800 border border-slate-300 rounded px-3 py-2 text-xs font-medium shadow-sm outline-none focus:border-[#601934] focus:ring-1 focus:ring-[#601934] cursor-pointer appearance-none pr-7"
+                        >
+                          {AGE_OPTIONS.map((opt) => (
+                            <option key={opt} value={opt}>
+                              {opt}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-600">
+                          <ChevronsUpDown className="w-3.5 h-3.5 text-slate-500" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -345,12 +491,22 @@ export const BookingCheckoutPage: React.FC = () => {
                   <span className="font-semibold text-slate-900 text-right max-w-[180px] truncate">{tour.title}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Travel Date:</span>
-                  <span className="font-semibold text-slate-900">{travelDate}</span>
+                  <span className="text-slate-500">Start Date:</span>
+                  <span className="font-semibold text-slate-900">{formatDateDisplay(startDate)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Guests:</span>
+                  <span className="text-slate-500">End Date:</span>
+                  <span className="font-semibold text-slate-900">{formatDateDisplay(endDate)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Passengers:</span>
                   <span className="font-semibold text-slate-900">{guestsCount} Person(s)</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <span className="text-slate-500 shrink-0">Passenger Ages:</span>
+                  <span className="font-semibold text-slate-900 text-right">
+                    {paxAges.map((a, i) => `Pax ${i + 1}: ${a}`).join(', ')}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500">Pricing Basis:</span>

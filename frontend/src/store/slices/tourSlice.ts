@@ -83,12 +83,12 @@ const tourSlice = createSlice({
       // fetchCategories
       .addCase(fetchCategories.fulfilled, (state, action: PayloadAction<TourCategory[]>) => {
         if (Array.isArray(action.payload) && action.payload.length > 0) {
-          state.categories = action.payload;
+          state.categories = action.payload.filter((c) => c.slug !== 'adventure-activities');
         }
       })
       .addCase(fetchCategories.rejected, (state) => {
         if (!state.categories || state.categories.length === 0) {
-          state.categories = FALLBACK_CATEGORIES;
+          state.categories = FALLBACK_CATEGORIES.filter((c) => c.slug !== 'adventure-activities');
         }
       })
       // fetchTourBySlug

@@ -1,8 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Calendar, Users, Compass, ChevronDown, Plus, Minus } from 'lucide-react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { Calendar, ChevronsUpDown } from 'lucide-react';
 
 interface SearchFilterBarProps {
   initialCategory?: string;
@@ -12,260 +10,246 @@ interface SearchFilterBarProps {
   isHero?: boolean;
 }
 
+const TABS = [
+  { id: 'tours', label: 'Tours' },
+  { id: 'transit', label: 'Transit Tours' },
+  { id: 'transfer', label: 'Transfer' },
+  { id: 'meet-assist', label: 'Meet & Assist / Lounges' },
+];
+
+const AGE_OPTIONS = Array.from({ length: 85 }, (_, i) => `${i + 1} Years`);
+
+const formatDateDisplay = (dateStr: string) => {
+  if (!dateStr) return '';
+  const parts = dateStr.split('-');
+  if (parts.length !== 3) return dateStr;
+  const year = Number(parts[0]);
+  const month = Number(parts[1]) - 1;
+  const day = Number(parts[2]);
+  const d = new Date(year, month, day);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+};
+
+const getInitialDates = () => {
+  const now = new Date();
+  const start = new Date(now);
+  start.setDate(now.getDate() + 7);
+  const end = new Date(now);
+  end.setDate(now.getDate() + 14);
+
+  const formatISO = (d: Date) => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  };
+
+  return {
+    start: formatISO(start),
+    end: formatISO(end),
+  };
+};
+
 export const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
-  initialCategory = '',
   initialGuests = 2,
   initialDate = '',
   onFilterChange,
-  isHero = false,
 }) => {
   const navigate = useNavigate();
-  const { categories } = useSelector((state: RootState) => state.tours);
+  const initialDates = getInitialDates();
 
-  const [category, setCategory] = useState(initialCategory);
-  const [adults, setAdults] = useState(initialGuests || 2);
-  const [children, setChildren] = useState(0);
-  const [infants, setInfants] = useState(0);
-  const [guestsPickerOpen, setGuestsPickerOpen] = useState(false);
-  const guestPickerRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState('tours');
+  const [startDate, setStartDate] = useState(initialDate || initialDates.start);
+  const [endDate, setEndDate] = useState(initialDates.end);
+  const [passengers, setPassengers] = useState(initialGuests || 2);
+  const [paxAges, setPaxAges] = useState<string[]>(['18 Years', '18 Years']);
 
-  const [date, setDate] = useState(initialDate);
-  const [search, setSearch] = useState('');
+  const startDateRef = useRef<HTMLInputElement>(null);
+  const endDateRef = useRef<HTMLInputElement>(null);
 
-  // Total count for tour query
-  const totalGuests = Math.max(1, adults + children);
-
-  // Close popup on click outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (guestPickerRef.current && !guestPickerRef.current.contains(event.target as Node)) {
-        setGuestsPickerOpen(false);
+  const handlePassengersChange = (newCount: number) => {
+    const count = Math.max(1, Math.min(10, newCount));
+    setPassengers(count);
+    setPaxAges((prev) => {
+      const next = [...prev];
+      if (count > next.length) {
+        while (next.length < count) {
+          next.push('18 Years');
+        }
+      } else {
+        next.splice(count);
       }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+      return next;
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setGuestsPickerOpen(false);
 
     if (onFilterChange) {
-      onFilterChange({ category, guests: totalGuests, date, search });
-    } else {
-      const params = new URLSearchParams();
-      if (category) params.append('category', category);
-      if (totalGuests) params.append('guests', totalGuests.toString());
-      if (adults) params.append('adults', adults.toString());
-      if (children) params.append('children', children.toString());
-      if (infants) params.append('infants', infants.toString());
-      if (date) params.append('date', date);
-      if (search) params.append('search', search);
-
-      navigate(`/tours?${params.toString()}`);
+      onFilterChange({
+        category: activeTab === 'transit' ? 'transit-tours' : '',
+        guests: passengers,
+        date: startDate,
+        search: '',
+      });
+      return;
     }
-  };
 
-  // Format guest summary display
-  const getGuestSummary = () => {
-    const parts: string[] = [];
-    parts.push(`${adults} ${adults === 1 ? 'Adult' : 'Adults'}`);
-    if (children > 0) parts.push(`${children} ${children === 1 ? 'Child' : 'Children'}`);
-    if (infants > 0) parts.push(`${infants} ${infants === 1 ? 'Infant' : 'Infants'}`);
-    return parts.join(', ');
+    if (activeTab === 'transfer' || activeTab === 'meet-assist') {
+      navigate(`/contact?service=${activeTab}&startDate=${startDate}&endDate=${endDate}&passengers=${passengers}`);
+      return;
+    }
+
+    const params = new URLSearchParams();
+    if (activeTab === 'transit') {
+      params.append('category', 'transit-tours');
+    }
+    if (startDate) params.append('startDate', startDate);
+    if (endDate) params.append('endDate', endDate);
+    if (passengers) params.append('guests', passengers.toString());
+    if (paxAges.length > 0) params.append('paxAges', paxAges.join(','));
+
+    navigate(`/tours?${params.toString()}`);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={`w-full rounded-2xl transition-all ${
-        isHero
-          ? 'bg-white/95 backdrop-blur-md p-4 sm:p-5 border-2 border-yellow-400 shadow-2xl ring-4 ring-black/10'
-          : 'bg-white p-4 border border-slate-200 shadow-md'
-      }`}
-    >
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
-        {/* Category */}
-        <div className="space-y-1 text-left">
-          <label className="text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 text-slate-800">
-            <Compass className="w-3.5 h-3.5 text-yellow-600" />
-            <span>Tour Category</span>
-          </label>
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className={`w-full rounded-lg px-3 py-2.5 text-xs font-semibold outline-none transition ${
-              isHero
-                ? 'bg-slate-50 text-slate-900 border border-slate-300 focus:border-yellow-500 focus:bg-white shadow-sm'
-                : 'bg-slate-50 text-slate-800 border border-slate-300 focus:border-qatar-maroon'
-            }`}
-          >
-            <option value="">All Categories (25 Tours)</option>
-            {(categories || []).map((cat) => (
-              <option key={cat.id} value={cat.slug}>
-                {cat.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Travel Date */}
-        <div className="space-y-1 text-left">
-          <label className="text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 text-slate-800">
-            <Calendar className="w-3.5 h-3.5 text-yellow-600" />
-            <span>Travel Date</span>
-          </label>
-          <input
-            type="date"
-            value={date}
-            min={new Date().toISOString().split('T')[0]}
-            onChange={(e) => setDate(e.target.value)}
-            className={`w-full rounded-lg px-3 py-2.5 text-xs font-semibold outline-none transition ${
-              isHero
-                ? 'bg-slate-50 text-slate-900 border border-slate-300 focus:border-yellow-500 focus:bg-white shadow-sm'
-                : 'bg-slate-50 text-slate-800 border border-slate-300 focus:border-qatar-maroon'
-            }`}
-          />
-        </div>
-
-        {/* Guests with Interactive Counter Popover matching Image 2 */}
-        <div className={`space-y-1 text-left relative ${guestsPickerOpen ? 'z-50' : ''}`} ref={guestPickerRef}>
-          <label className="text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 text-slate-800">
-            <Users className="w-3.5 h-3.5 text-yellow-600" />
-            <span>Number of Guests</span>
-          </label>
-
-          <button
-            type="button"
-            onClick={() => setGuestsPickerOpen(!guestsPickerOpen)}
-            className={`w-full rounded-lg px-3 py-2.5 text-xs font-semibold outline-none transition flex items-center justify-between text-left ${
-              isHero
-                ? 'bg-slate-50 text-slate-900 border border-slate-300 focus:border-yellow-500 focus:bg-white shadow-sm'
-                : 'bg-slate-50 text-slate-800 border border-slate-300 focus:border-qatar-maroon'
-            }`}
-          >
-            <span className="truncate">{getGuestSummary()}</span>
-            <ChevronDown
-              className={`w-3.5 h-3.5 text-slate-500 transition-transform ${
-                guestsPickerOpen ? 'rotate-180 text-yellow-600' : ''
+    <form onSubmit={handleSubmit} className="w-full text-left">
+      {/* Top Tabs */}
+      <div className="flex items-end overflow-x-auto no-scrollbar space-x-0.5">
+        {TABS.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-semibold transition-all whitespace-nowrap rounded-t-lg tracking-wide ${
+                isActive
+                  ? 'bg-white/95 text-[#601934] font-bold shadow-sm'
+                  : 'bg-[#601934] hover:bg-[#782042] text-white/95'
               }`}
-            />
-          </button>
+            >
+              {tab.label}
+            </button>
+          );
+        })}
+      </div>
 
-          {/* Interactive Guest Picker Popover matching Image 2 */}
-          {guestsPickerOpen && (
-            <div className="absolute top-full left-0 sm:left-auto sm:right-0 md:left-0 md:right-auto w-full sm:w-80 mt-2 bg-white rounded-2xl border border-slate-200/90 shadow-2xl ring-1 ring-black/10 p-4 z-[100] animate-in fade-in slide-in-from-top-2 duration-150">
-              {/* Row 1: Adults */}
-              <div className="flex items-center justify-between py-2">
-                <div>
-                  <div className="text-sm font-bold text-slate-900">Adults</div>
-                  <div className="text-xs text-slate-500">Age 12+</div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setAdults((prev) => Math.max(1, prev - 1))}
-                    disabled={adults <= 1}
-                    className="w-8 h-8 rounded-full border border-slate-300 hover:border-slate-400 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center text-slate-700 transition"
-                  >
-                    <Minus className="w-3.5 h-3.5" />
-                  </button>
-                  <span className="w-6 text-center text-sm font-bold text-slate-900">{adults}</span>
-                  <button
-                    type="button"
-                    onClick={() => setAdults((prev) => Math.min(15, prev + 1))}
-                    disabled={adults >= 15}
-                    className="w-8 h-8 rounded-full border border-slate-300 hover:border-slate-400 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center text-slate-700 transition"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
+      {/* Main Search Filter Panel */}
+      <div className="bg-white/90 backdrop-blur-md rounded-b-xl rounded-tr-xl p-4 sm:p-6 shadow-2xl border border-white/60">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 items-start">
+          {/* Start Date */}
+          <div className="space-y-1 text-left">
+            <label className="text-xs sm:text-[13px] font-semibold text-[#601934] block">
+              Start Date
+            </label>
+            <div
+              onClick={() => startDateRef.current?.showPicker?.() || startDateRef.current?.focus()}
+              className="relative flex items-center justify-between w-full bg-white text-slate-800 border border-slate-300 rounded px-3 py-2 text-sm shadow-sm cursor-pointer hover:border-[#601934] transition"
+            >
+              <span className="text-slate-800 font-medium">
+                {formatDateDisplay(startDate)}
+              </span>
+              <Calendar className="w-4 h-4 text-slate-700 shrink-0 pointer-events-none" />
+              <input
+                ref={startDateRef}
+                type="date"
+                value={startDate}
+                min={new Date().toISOString().split('T')[0]}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+              />
+            </div>
+          </div>
 
-              <div className="border-b border-slate-100 my-1" />
+          {/* End Date */}
+          <div className="space-y-1 text-left">
+            <label className="text-xs sm:text-[13px] font-semibold text-[#601934] block">
+              End Date
+            </label>
+            <div
+              onClick={() => endDateRef.current?.showPicker?.() || endDateRef.current?.focus()}
+              className="relative flex items-center justify-between w-full bg-white text-slate-800 border border-slate-300 rounded px-3 py-2 text-sm shadow-sm cursor-pointer hover:border-[#601934] transition"
+            >
+              <span className="text-slate-800 font-medium">
+                {formatDateDisplay(endDate)}
+              </span>
+              <Calendar className="w-4 h-4 text-slate-700 shrink-0 pointer-events-none" />
+              <input
+                ref={endDateRef}
+                type="date"
+                value={endDate}
+                min={startDate || new Date().toISOString().split('T')[0]}
+                onChange={(e) => setEndDate(e.target.value)}
+                className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+              />
+            </div>
+          </div>
 
-              {/* Row 2: Children */}
-              <div className="flex items-center justify-between py-2">
-                <div>
-                  <div className="text-sm font-bold text-slate-900">Children</div>
-                  <div className="text-xs text-slate-500">Age 3–11</div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setChildren((prev) => Math.max(0, prev - 1))}
-                    disabled={children <= 0}
-                    className="w-8 h-8 rounded-full border border-slate-300 hover:border-slate-400 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center text-slate-700 transition"
-                  >
-                    <Minus className="w-3.5 h-3.5" />
-                  </button>
-                  <span className="w-6 text-center text-sm font-bold text-slate-900">{children}</span>
-                  <button
-                    type="button"
-                    onClick={() => setChildren((prev) => Math.min(10, prev + 1))}
-                    disabled={children >= 10}
-                    className="w-8 h-8 rounded-full border border-slate-300 hover:border-slate-400 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center text-slate-700 transition"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="border-b border-slate-100 my-1" />
-
-              {/* Row 3: Infants */}
-              <div className="flex items-center justify-between py-2">
-                <div>
-                  <div className="text-sm font-bold text-slate-900">Infants</div>
-                  <div className="text-xs text-slate-500">Under 3 · free</div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setInfants((prev) => Math.max(0, prev - 1))}
-                    disabled={infants <= 0}
-                    className="w-8 h-8 rounded-full border border-slate-300 hover:border-slate-400 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center text-slate-700 transition"
-                  >
-                    <Minus className="w-3.5 h-3.5" />
-                  </button>
-                  <span className="w-6 text-center text-sm font-bold text-slate-900">{infants}</span>
-                  <button
-                    type="button"
-                    onClick={() => setInfants((prev) => Math.min(6, prev + 1))}
-                    disabled={infants >= 6}
-                    className="w-8 h-8 rounded-full border border-slate-300 hover:border-slate-400 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center text-slate-700 transition"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Bottom Done Action */}
-              <div className="pt-3 mt-1 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-[11px] text-slate-500 font-medium">
-                  {totalGuests} {totalGuests === 1 ? 'Guest' : 'Guests'} total
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setGuestsPickerOpen(false)}
-                  className="px-4 py-1.5 rounded-lg bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold text-xs uppercase tracking-wider transition shadow-sm"
-                >
-                  Apply
-                </button>
+          {/* Number of Passengers */}
+          <div className="space-y-1 text-left">
+            <label className="text-xs sm:text-[13px] font-semibold text-[#601934] block">
+              Number of Passengers:
+            </label>
+            <div className="relative">
+              <select
+                value={passengers}
+                onChange={(e) => handlePassengersChange(Number(e.target.value))}
+                className="w-full bg-white text-slate-800 border border-slate-300 rounded px-3 py-2 text-sm font-medium shadow-sm outline-none focus:border-[#601934] focus:ring-1 focus:ring-[#601934] cursor-pointer appearance-none pr-8"
+              >
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-600">
+                <ChevronsUpDown className="w-4 h-4 text-slate-600" />
               </div>
             </div>
-          )}
+          </div>
+
+          {/* Dynamic Pax Ages */}
+          {paxAges.map((age, idx) => (
+            <div key={`pax-age-${idx}`} className="space-y-1 text-left">
+              <label className="text-xs sm:text-[13px] font-semibold text-[#601934] block">
+                {`Pax ${idx + 1} Age:`}
+              </label>
+              <div className="relative">
+                <select
+                  value={age}
+                  onChange={(e) => {
+                    const newAges = [...paxAges];
+                    newAges[idx] = e.target.value;
+                    setPaxAges(newAges);
+                  }}
+                  className="w-full bg-white text-slate-800 border border-slate-300 rounded px-3 py-2 text-sm font-medium shadow-sm outline-none focus:border-[#601934] focus:ring-1 focus:ring-[#601934] cursor-pointer appearance-none pr-8"
+                >
+                  {AGE_OPTIONS.map((opt) => (
+                    <option key={opt} value={opt}>
+                      {opt}
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-600">
+                  <ChevronsUpDown className="w-4 h-4 text-slate-600" />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* Submit Button */}
-        <div className="sm:col-span-2 lg:col-span-1 flex items-end">
-          <button
-            type="submit"
-            className="w-full h-10 px-6 bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-extrabold text-xs uppercase tracking-wider rounded-lg shadow-lg hover:shadow-yellow-400/50 flex items-center justify-center gap-2 transition transform active:scale-95"
-          >
-            <Search className="w-4 h-4 stroke-[2.5]" />
-            <span>Find Experience</span>
-          </button>
+        {/* Search Action Button Row (aligned under Pax age columns on desktop) */}
+        <div className="mt-4 flex justify-end">
+          <div className="w-full sm:w-auto lg:w-[38%]">
+            <button
+              type="submit"
+              className="w-full py-2.5 px-8 bg-[#601934] hover:bg-[#782042] text-white font-bold text-sm rounded shadow-md transition transform active:scale-95 text-center tracking-wide"
+            >
+              Search
+            </button>
+          </div>
         </div>
       </div>
     </form>
