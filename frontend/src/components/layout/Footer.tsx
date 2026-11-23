@@ -18,23 +18,23 @@ export const Footer: React.FC = () => {
   const whatsapp = settings.whatsapp || '';
 
   return (
-    <footer className="bg-gradient-to-r from-[#FFF1B4] via-[#FED0D2] to-[#FFB0F2] text-slate-800 border-t border-[#fed0d2] pt-16 pb-10 shadow-inner">
+    <footer className="bg-gradient-to-b from-[#3B0814] to-[#200309] text-slate-200 border-t border-amber-400/30 pt-16 pb-10 shadow-inner">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-900/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
           {/* Column 1: Brand & Bio */}
           <div className="lg:col-span-2 space-y-4">
-            <Logo variant="dark" size="lg" />
-            <p className="text-sm text-slate-700 leading-relaxed max-w-sm mt-3">
+            <Logo variant="light" size="lg" />
+            <p className="text-sm text-slate-300 leading-relaxed max-w-sm mt-3">
               Imperial Tours Qatar (ITQ) delivers world-class, bespoke tourism experiences across Qatar. From heart-pumping desert dune bashing and traditional dhow cruises to museum heritage tours and coastal marine adventures.
             </p>
 
             <div className="pt-2 flex items-center gap-3">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 border border-amber-300 text-amber-900 text-xs font-semibold shadow-2xs">
-                <Award className="w-3.5 h-3.5 text-amber-600" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-semibold shadow-2xs">
+                <Award className="w-3.5 h-3.5 text-amber-400" />
                 Premium Qatar DMC
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-qatar-maroon/10 border border-qatar-maroon/30 text-qatar-maroon text-xs font-semibold">
-                <ShieldCheck className="w-3.5 h-3.5" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-semibold">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                 100% Insured Fleet
               </span>
             </div>
@@ -46,7 +46,7 @@ export const Footer: React.FC = () => {
                   href={settings.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-lg bg-white/80 hover:bg-white text-slate-800 hover:text-qatar-maroon transition border border-[#fed0d2] shadow-xs"
+                  className="p-2.5 rounded-lg bg-white/10 hover:bg-amber-400 hover:text-slate-950 text-slate-200 transition border border-white/10 shadow-xs"
                   aria-label="Instagram"
                 >
                   <Instagram className="w-4 h-4" />
@@ -58,7 +58,7 @@ export const Footer: React.FC = () => {
                   href={settings.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-lg bg-white/80 hover:bg-white text-slate-800 hover:text-qatar-maroon transition border border-[#fed0d2] shadow-xs"
+                  className="p-2.5 rounded-lg bg-white/10 hover:bg-amber-400 hover:text-slate-950 text-slate-200 transition border border-white/10 shadow-xs"
                   aria-label="Facebook"
                 >
                   <Facebook className="w-4 h-4" />
@@ -70,7 +70,7 @@ export const Footer: React.FC = () => {
                   href={settings.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-lg bg-white/80 hover:bg-white text-slate-800 hover:text-qatar-maroon transition border border-[#fed0d2] shadow-xs"
+                  className="p-2.5 rounded-lg bg-white/10 hover:bg-amber-400 hover:text-slate-950 text-slate-200 transition border border-white/10 shadow-xs"
                   aria-label="Twitter / X"
                 >
                   <Twitter className="w-4 h-4" />
@@ -82,7 +82,7 @@ export const Footer: React.FC = () => {
                   href={settings.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-lg bg-white/80 hover:bg-white text-slate-800 hover:text-qatar-maroon transition border border-[#fed0d2] shadow-xs"
+                  className="p-2.5 rounded-lg bg-white/10 hover:bg-amber-400 hover:text-slate-950 text-slate-200 transition border border-white/10 shadow-xs"
                   aria-label="YouTube"
                 >
                   <Youtube className="w-4 h-4" />
@@ -93,43 +93,43 @@ export const Footer: React.FC = () => {
 
           {/* Column 2: Quick Links */}
           <div className="space-y-3">
-            <h4 className="font-serif text-sm font-bold text-slate-950 uppercase tracking-wider">
+            <h4 className="font-serif text-sm font-bold text-amber-400 uppercase tracking-wider">
               Navigation
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/" className="text-slate-700 hover:text-qatar-maroon font-medium transition flex items-center gap-1.5">
-                  <ChevronRight className="w-3 h-3 text-qatar-maroon" />
+                <Link to="/" className="text-slate-300 hover:text-amber-300 font-medium transition flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/tours" className="text-slate-700 hover:text-qatar-maroon font-medium transition flex items-center gap-1.5">
-                  <ChevronRight className="w-3 h-3 text-qatar-maroon" />
+                <Link to="/tours" className="text-slate-300 hover:text-amber-300 font-medium transition flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
                   All 25 Tours
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-slate-700 hover:text-qatar-maroon font-medium transition flex items-center gap-1.5">
-                  <ChevronRight className="w-3 h-3 text-qatar-maroon" />
+                <Link to="/about" className="text-slate-300 hover:text-amber-300 font-medium transition flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-slate-700 hover:text-qatar-maroon font-medium transition flex items-center gap-1.5">
-                  <ChevronRight className="w-3 h-3 text-qatar-maroon" />
+                <Link to="/contact" className="text-slate-300 hover:text-amber-300 font-medium transition flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link to="/faqs" className="text-slate-700 hover:text-qatar-maroon font-medium transition flex items-center gap-1.5">
-                  <ChevronRight className="w-3 h-3 text-qatar-maroon" />
+                <Link to="/faqs" className="text-slate-300 hover:text-amber-300 font-medium transition flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
                   Frequently Asked Questions
                 </Link>
               </li>
               <li>
-                <Link to="/admin" className="text-slate-600 hover:text-slate-950 font-medium transition flex items-center gap-1.5">
-                  <ChevronRight className="w-3 h-3 text-slate-400" />
+                <Link to="/admin" className="text-slate-400 hover:text-white font-medium transition flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-slate-500" />
                   Admin Dashboard
                 </Link>
               </li>
@@ -138,7 +138,7 @@ export const Footer: React.FC = () => {
 
           {/* Column 3: Tour Categories */}
           <div className="space-y-3">
-            <h4 className="font-serif text-sm font-bold text-slate-950 uppercase tracking-wider">
+            <h4 className="font-serif text-sm font-bold text-amber-400 uppercase tracking-wider">
               Tour Categories
             </h4>
             <ul className="space-y-2 text-sm">
@@ -146,9 +146,9 @@ export const Footer: React.FC = () => {
                 <li key={cat.id}>
                   <Link
                     to={`/tours/category/${cat.slug}`}
-                    className="text-slate-700 hover:text-qatar-maroon font-medium transition flex items-center gap-1.5"
+                    className="text-slate-300 hover:text-amber-300 font-medium transition flex items-center gap-1.5"
                   >
-                    <ChevronRight className="w-3 h-3 text-qatar-maroon" />
+                    <ChevronRight className="w-3 h-3 text-amber-400" />
                     {cat.name}
                   </Link>
                 </li>
@@ -158,14 +158,14 @@ export const Footer: React.FC = () => {
 
           {/* Column 4: Contact & Office (Admin Configurable) */}
           <div className="space-y-3">
-            <h4 className="font-serif text-sm font-bold text-slate-950 uppercase tracking-wider">
+            <h4 className="font-serif text-sm font-bold text-amber-400 uppercase tracking-wider">
               Contact & Inquiries
             </h4>
-            <div className="space-y-3 text-sm text-slate-700">
+            <div className="space-y-3 text-sm text-slate-300">
               {phone ? (
                 <div className="flex items-start gap-2.5">
-                  <Phone className="w-4 h-4 text-qatar-maroon flex-shrink-0 mt-0.5" />
-                  <a href={`tel:${phone}`} className="hover:text-qatar-maroon transition font-medium">
+                  <Phone className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                  <a href={`tel:${phone}`} className="hover:text-amber-300 transition font-medium">
                     {phone}
                   </a>
                 </div>
@@ -173,8 +173,8 @@ export const Footer: React.FC = () => {
 
               {email ? (
                 <div className="flex items-start gap-2.5">
-                  <Mail className="w-4 h-4 text-qatar-maroon flex-shrink-0 mt-0.5" />
-                  <a href={`mailto:${email}`} className="hover:text-qatar-maroon transition font-medium">
+                  <Mail className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                  <a href={`mailto:${email}`} className="hover:text-amber-300 transition font-medium">
                     {email}
                   </a>
                 </div>
@@ -182,25 +182,25 @@ export const Footer: React.FC = () => {
 
               {address ? (
                 <div className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-qatar-maroon flex-shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
                   <span>{address}</span>
                 </div>
               ) : (
                 <div className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-qatar-maroon flex-shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
                   <span>State of Qatar (Doha)</span>
                 </div>
               )}
 
               <div className="flex items-start gap-2.5">
-                <Clock className="w-4 h-4 text-qatar-maroon flex-shrink-0 mt-0.5" />
+                <Clock className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
                 <span>Operating 7 Days a Week<br />Pickup from all Doha Hotels</span>
               </div>
 
               <div className="pt-2">
                 <Link
                   to="/contact"
-                  className="inline-block text-xs font-bold text-qatar-maroon hover:underline underline-offset-4"
+                  className="inline-block text-xs font-bold text-amber-400 hover:text-amber-300 hover:underline underline-offset-4"
                 >
                   Send a Direct Message →
                 </Link>
@@ -210,19 +210,19 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 gap-4">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
           <p>
             © {new Date().getFullYear()} Imperial Tours Qatar (ITQ). All Rights Reserved. All prices in Qatari Riyal (QAR).
           </p>
           <div className="flex items-center gap-6">
-            <Link to="/privacy-policy" className="hover:text-qatar-maroon transition">
+            <Link to="/privacy-policy" className="hover:text-amber-300 transition">
               Privacy Policy
             </Link>
-            <Link to="/terms-conditions" className="hover:text-qatar-maroon transition">
+            <Link to="/terms-conditions" className="hover:text-amber-300 transition">
               Terms & Conditions
             </Link>
-            <span className="text-slate-400">|</span>
-            <span className="text-qatar-maroon font-semibold">Qatar Tourism Licensed</span>
+            <span className="text-white/20">|</span>
+            <span className="text-amber-400 font-semibold">Qatar Tourism Licensed</span>
           </div>
         </div>
       </div>

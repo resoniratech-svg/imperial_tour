@@ -764,7 +764,7 @@ export const FALLBACK_TOURS: Tour[] = ([
     "duration": "20:00–00:00",
     "availability": null,
     "categoryId": "e9ee2f5c-0225-4fe6-945b-7a9229a5ddd4",
-    "coverImage": "/tours/overnight-desert-safari.jpg",
+    "coverImage": "/tours/night-safari-with-bonfire.jpg",
     "isActive": true,
     "isFeatured": false,
     "sortOrder": 6,

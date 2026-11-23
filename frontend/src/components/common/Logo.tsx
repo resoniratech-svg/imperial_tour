@@ -16,12 +16,12 @@ export const Logo: React.FC<LogoProps> = ({
 }) => {
   const isLight = variant === 'light';
 
-  // Explicit, pixel-perfect medallion sizing
-  const medallionSizes = {
-    sm: 'w-[48px] h-[48px]',
-    md: 'w-[68px] h-[68px] sm:w-[78px] sm:h-[78px]', // Increased size for prominent luxury branding
-    lg: 'w-[88px] h-[88px] sm:w-[100px] sm:h-[100px]',
-    xl: 'w-[110px] h-[110px] sm:w-[128px] sm:h-[128px]',
+  // Explicit, pixel-perfect emblem sizing
+  const emblemSizes = {
+    sm: 'w-[44px] h-[44px]',
+    md: 'w-[64px] h-[64px] sm:w-[72px] sm:h-[72px]',
+    lg: 'w-[84px] h-[84px] sm:w-[96px] sm:h-[96px]',
+    xl: 'w-[100px] h-[100px] sm:w-[120px] sm:h-[120px]',
   }[size];
 
   const titleSizes = {
@@ -47,18 +47,22 @@ export const Logo: React.FC<LogoProps> = ({
 
   return (
     <Link to="/" className={`flex items-center gap-3.5 group flex-shrink-0 ${className}`}>
-      {/* Official Imperial Tours Qatar Medallion with Authentic 3D Gold Framing */}
+      {/* Official Imperial Tours Qatar Emblem with Clean Luxury Framing */}
       <div
-        className={`relative ${medallionSizes} flex-shrink-0 group-hover:scale-105 transition-all duration-300 drop-shadow-[0_4px_12px_rgba(0,0,0,0.22)]`}
+        className={`relative ${emblemSizes} flex-shrink-0 flex items-center justify-center rounded-2xl ${
+          isLight
+            ? 'bg-white/95 backdrop-blur-md p-1.5 shadow-md border border-amber-300/60'
+            : 'bg-white/90 p-1 shadow-sm border border-slate-200'
+        } group-hover:scale-105 transition-all duration-300 drop-shadow-[0_4px_12px_rgba(0,0,0,0.22)]`}
       >
         <img
-          src="/logo.png"
+          src="/logo-emblem.png"
           alt="Imperial Tours Qatar (ITQ) Official Logo"
           className="w-full h-full object-contain select-none"
         />
       </div>
 
-      {/* Typography - Clean Luxury Brand Mark (Solution 1) */}
+      {/* Typography - Imperial Tours Qatar words beside logo */}
       <div className="flex flex-col justify-center select-none">
         <div className="flex items-center gap-1.5 leading-none">
           <span

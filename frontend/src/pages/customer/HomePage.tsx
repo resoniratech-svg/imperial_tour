@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   Compass, ArrowRight, ShieldCheck, Award, HeartHandshake,
   Car, Users, Headphones, Star, CheckCircle2, Sparkles, MapPin,
-  ChevronDown, ChevronUp
+  ChevronDown, ChevronUp, Video, Anchor
 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
@@ -372,6 +372,101 @@ export const HomePage: React.FC = () => {
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION: CINEMATIC VIDEO SHOWCASE - QATAR IN MOTION */}
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#FAF9F6] via-[#F4ECE1] to-[#FAF9F6] border-y border-amber-200/60 overflow-hidden">
+        {/* Subtle decorative background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-qatar-maroon/10 border border-qatar-maroon/25 text-qatar-maroon text-xs font-bold tracking-widest uppercase shadow-xs mb-3">
+              <Video className="w-3.5 h-3.5 text-qatar-maroon" />
+              <span>Cinematic Experience • Qatar In Motion</span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              Sailing the Turquoise Waters of Doha Bay
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 mx-auto mt-4 rounded-full" />
+            <p className="text-sm sm:text-base text-slate-700 mt-4 leading-relaxed font-normal">
+              Experience the timeless harmony of Qatar’s maritime heritage and modern grandeur. Glide peacefully along the Corniche on a traditional handcrafted wooden dhow as the iconic West Bay skyline rises on the horizon.
+            </p>
+          </div>
+
+          {/* Luxury Video Cinema Container */}
+          <div className="relative rounded-3xl overflow-hidden shadow-[0_25px_60px_-15px_rgba(59,8,20,0.35)] border-2 border-amber-400/40 bg-slate-950 group">
+            {/* 4K Badge */}
+            <div className="absolute top-4 left-4 z-20 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-bold shadow-lg">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>4K Ultra HD • Traditional Dhow Heritage</span>
+            </div>
+
+            {/* Video Element */}
+            <video
+              src="/14326077_3840_2160_30fps.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls
+              className="w-full max-h-[640px] aspect-video object-cover rounded-3xl shadow-2xl"
+            >
+              Your browser does not support the video tag.
+            </video>
+
+            {/* Bottom Floating CTA Bar */}
+            <div className="p-6 sm:p-8 bg-slate-950 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-white/10">
+              <div className="space-y-1">
+                <span className="text-xs uppercase font-bold tracking-wider text-yellow-400">Authentic Qatari Journey</span>
+                <h3 className="font-serif text-xl sm:text-2xl font-bold">Traditional Dhow Cruise & Skyline Tour</h3>
+                <p className="text-xs text-slate-300 max-w-lg">Private charters, sunset voyages with open buffet BBQ, and serene coastal sightseeing.</p>
+              </div>
+
+              <Link
+                to="/tours/dhow-cruise-tour"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-full shadow-xl transition transform hover:scale-105 active:scale-95 flex-shrink-0"
+              >
+                <span>Book Dhow Cruise</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Three Feature Highlights Under Video */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+            <div className="flex items-start gap-4 p-5 rounded-2xl bg-white/90 backdrop-blur-sm border border-amber-300/40 shadow-md hover:shadow-lg transition">
+              <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center flex-shrink-0 text-amber-700">
+                <Anchor className="w-6 h-6" />
+              </div>
+              <div>
+                <h4 className="font-serif font-bold text-slate-900 text-base">Handcrafted Wooden Dhows</h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">Centuries of Qatari maritime heritage preserved in authentic, fully restored wooden vessels.</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4 p-5 rounded-2xl bg-white/90 backdrop-blur-sm border border-amber-300/40 shadow-md hover:shadow-lg transition">
+              <div className="w-12 h-12 rounded-xl bg-qatar-maroon/10 border border-qatar-maroon/20 flex items-center justify-center flex-shrink-0 text-qatar-maroon">
+                <Compass className="w-6 h-6" />
+              </div>
+              <div>
+                <h4 className="font-serif font-bold text-slate-900 text-base">Spectacular Skyline Views</h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">Front-row panoramas of the iconic Doha West Bay skyline, Museum of Islamic Art, and Corniche.</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4 p-5 rounded-2xl bg-white/90 backdrop-blur-sm border border-amber-300/40 shadow-md hover:shadow-lg transition">
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-400/30 flex items-center justify-center flex-shrink-0 text-emerald-700">
+                <Sparkles className="w-6 h-6" />
+              </div>
+              <div>
+                <h4 className="font-serif font-bold text-slate-900 text-base">Sunset & Dinner Cruises</h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">Unwind at dusk with freshly prepared BBQ, traditional Arabic hospitality, and gentle sea waves.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

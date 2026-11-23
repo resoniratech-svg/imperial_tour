@@ -36,35 +36,35 @@ export const Navbar: React.FC = () => {
   }, [location.pathname]);
 
   const navBg = isHome && !isScrolled
-    ? 'bg-gradient-to-r from-[#FFF1B4] via-[#FED0D2] to-[#FFB0F2] backdrop-blur-md border-b border-[#fed0d2]/70 shadow-sm'
-    : 'bg-gradient-to-r from-[#FFF1B4] via-[#FED0D2] to-[#FFB0F2] backdrop-blur-md border-b border-[#fed0d2] shadow-md';
+    ? 'bg-[#3B0814]/90 backdrop-blur-md border-b border-amber-400/30 shadow-sm'
+    : 'bg-[#3B0814] backdrop-blur-md border-b border-amber-400/30 shadow-xl';
 
   return (
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
         {/* Top utility bar */}
-        <div className="hidden lg:block border-b border-slate-900/10 text-xs py-1.5 px-6 text-slate-700 bg-white/30 backdrop-blur-xs">
+        <div className="hidden lg:block border-b border-white/10 text-xs py-1.5 px-6 text-slate-300 bg-black/25 backdrop-blur-xs">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-6">
-              <span className="flex items-center gap-1.5 text-amber-800 font-semibold">
-                <ShieldCheck className="w-3.5 h-3.5" />
+              <span className="flex items-center gap-1.5 text-amber-300 font-semibold">
+                <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
                 Licensed Tourism Operator – Qatar
               </span>
-              <span className="text-slate-400">|</span>
-              <span className="text-slate-700 font-medium">Curated Luxury Qatar Experiences & Safaris</span>
+              <span className="text-white/30">|</span>
+              <span className="text-slate-200 font-medium">Curated Luxury Qatar Experiences & Safaris</span>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-amber-900 font-semibold bg-white/70 px-2.5 py-0.5 rounded border border-amber-300 shadow-2xs">
+              <span className="text-amber-300 font-semibold bg-white/10 px-2.5 py-0.5 rounded border border-amber-400/30 shadow-2xs">
                 Currency: QAR (Qatari Riyal)
               </span>
               <button
                 onClick={() => dispatch(setLanguage(language === 'en' ? 'ar' : 'en'))}
-                className="flex items-center gap-1 text-slate-700 hover:text-qatar-maroon font-semibold transition"
+                className="flex items-center gap-1 text-slate-200 hover:text-amber-300 font-semibold transition"
               >
-                <Globe className="w-3.5 h-3.5" />
+                <Globe className="w-3.5 h-3.5 text-amber-400" />
                 <span>{language === 'en' ? 'العربية' : 'English'}</span>
               </button>
-              <Link to="/admin" className="text-slate-600 hover:text-slate-950 font-medium transition">
+              <Link to="/admin" className="text-slate-300 hover:text-white font-medium transition">
                 Admin Portal
               </Link>
             </div>
@@ -73,7 +73,7 @@ export const Navbar: React.FC = () => {
 
         {/* Main Navbar */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[88px] sm:h-[96px] flex items-center justify-between">
-          <Logo variant="dark" />
+          <Logo variant="light" />
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8 text-sm font-medium">
@@ -81,8 +81,8 @@ export const Navbar: React.FC = () => {
               to="/"
               className={`relative py-1 font-semibold transition ${
                 location.pathname === '/'
-                  ? 'text-qatar-maroon font-bold after:absolute after:bottom-[-6px] after:left-0 after:right-0 after:h-[2.5px] after:bg-qatar-maroon after:rounded-full'
-                  : 'text-slate-800 hover:text-qatar-maroon'
+                  ? 'text-amber-300 font-bold after:absolute after:bottom-[-6px] after:left-0 after:right-0 after:h-[2.5px] after:bg-amber-400 after:rounded-full'
+                  : 'text-white/90 hover:text-amber-300'
               }`}
             >
               Home
@@ -94,16 +94,16 @@ export const Navbar: React.FC = () => {
               onMouseEnter={() => setToursDropdownOpen(true)}
               onMouseLeave={() => setToursDropdownOpen(false)}
             >
-              <button className="flex items-center gap-1.5 text-slate-800 hover:text-qatar-maroon font-semibold transition py-2">
+              <button className="flex items-center gap-1.5 text-white/90 hover:text-amber-300 font-semibold transition py-2">
                 <span>Tours</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${toursDropdownOpen ? 'rotate-180 text-qatar-maroon' : ''}`} />
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${toursDropdownOpen ? 'rotate-180 text-amber-300' : ''}`} />
               </button>
 
               {toursDropdownOpen && (
-                <div className="absolute top-full left-0 w-72 bg-white/95 backdrop-blur-md border border-[#fed0d2] rounded-xl shadow-2xl p-3 animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="absolute top-full left-0 w-72 bg-[#2D060F] backdrop-blur-md border border-amber-400/30 rounded-xl shadow-2xl p-3 animate-in fade-in slide-in-from-top-2 duration-150">
                   <Link
                     to="/tours"
-                    className="block p-2.5 rounded-lg bg-gradient-to-r from-[#FFF1B4] to-[#FED0D2] border border-amber-300/60 text-slate-900 font-bold mb-2 hover:opacity-90 transition text-sm"
+                    className="block p-2.5 rounded-lg bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-bold mb-2 hover:opacity-95 transition text-sm shadow-md"
                   >
                     View All 25 Tours & Packages →
                   </Link>
@@ -112,7 +112,7 @@ export const Navbar: React.FC = () => {
                       <Link
                         key={cat.id}
                         to={`/tours/category/${cat.slug}`}
-                        className="block px-3 py-2 rounded-md text-slate-700 hover:text-qatar-maroon hover:bg-[#FED0D2]/30 font-medium transition"
+                        className="block px-3 py-2 rounded-md text-slate-200 hover:text-amber-300 hover:bg-white/10 font-medium transition"
                       >
                         {cat.name}
                       </Link>
@@ -124,8 +124,8 @@ export const Navbar: React.FC = () => {
 
             <Link
               to="/about"
-              className={`transition font-semibold hover:text-qatar-maroon ${
-                location.pathname === '/about' ? 'text-qatar-maroon font-bold' : 'text-slate-800'
+              className={`transition font-semibold hover:text-amber-300 ${
+                location.pathname === '/about' ? 'text-amber-300 font-bold' : 'text-white/90'
               }`}
             >
               About Us
@@ -133,8 +133,8 @@ export const Navbar: React.FC = () => {
 
             <Link
               to="/contact"
-              className={`transition font-semibold hover:text-qatar-maroon ${
-                location.pathname === '/contact' ? 'text-qatar-maroon font-bold' : 'text-slate-800'
+              className={`transition font-semibold hover:text-amber-300 ${
+                location.pathname === '/contact' ? 'text-amber-300 font-bold' : 'text-white/90'
               }`}
             >
               Contact Us
@@ -145,7 +145,7 @@ export const Navbar: React.FC = () => {
           <div className="hidden lg:flex items-center gap-3">
             <Link
               to="/tours"
-              className="flex items-center gap-2 px-6 py-2.5 bg-slate-950 hover:bg-slate-900 text-yellow-400 font-bold text-xs uppercase tracking-wider rounded-full shadow-lg hover:shadow-slate-950/30 transition transform hover:-translate-y-0.5"
+              className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-full shadow-lg hover:shadow-amber-400/30 transition transform hover:-translate-y-0.5"
             >
               <span>Plan Your Trip</span>
             </Link>
@@ -155,7 +155,7 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center gap-2 lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-900 hover:text-qatar-maroon transition"
+              className="p-2 text-white hover:text-amber-300 transition"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -165,22 +165,22 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-gradient-to-b from-[#FFF1B4] via-[#FED0D2] to-[#FFB0F2] border-t border-[#fed0d2] px-6 py-6 space-y-4 max-h-[80vh] overflow-y-auto shadow-2xl">
+          <div className="lg:hidden bg-[#2D060F] border-t border-amber-400/30 px-6 py-6 space-y-4 max-h-[80vh] overflow-y-auto shadow-2xl text-white">
             <Link
               to="/"
-              className="block text-base font-semibold text-slate-900 hover:text-qatar-maroon py-1"
+              className="block text-base font-semibold text-white hover:text-amber-300 py-1"
             >
               Home
             </Link>
 
-            <div className="border-t border-slate-900/10 pt-3">
-              <div className="text-xs uppercase font-bold text-qatar-maroon tracking-wider mb-2">
+            <div className="border-t border-white/10 pt-3">
+              <div className="text-xs uppercase font-bold text-amber-300 tracking-wider mb-2">
                 Tour Categories
               </div>
               <div className="space-y-2 pl-2">
                 <Link
                   to="/tours"
-                  className="block text-sm font-bold text-slate-900 hover:text-qatar-maroon"
+                  className="block text-sm font-bold text-amber-400 hover:text-amber-200"
                 >
                   All Tours (25 Packages)
                 </Link>
@@ -188,7 +188,7 @@ export const Navbar: React.FC = () => {
                   <Link
                     key={cat.id}
                     to={`/tours/category/${cat.slug}`}
-                    className="block text-sm text-slate-700 hover:text-qatar-maroon font-medium"
+                    className="block text-sm text-slate-200 hover:text-amber-300 font-medium"
                   >
                     {cat.name}
                   </Link>
@@ -196,37 +196,37 @@ export const Navbar: React.FC = () => {
               </div>
             </div>
 
-            <div className="border-t border-slate-900/10 pt-3 space-y-2">
+            <div className="border-t border-white/10 pt-3 space-y-2">
               <Link
                 to="/about"
-                className="block text-base font-semibold text-slate-800 hover:text-qatar-maroon"
+                className="block text-base font-semibold text-slate-200 hover:text-amber-300"
               >
                 About Us
               </Link>
               <Link
                 to="/contact"
-                className="block text-base font-semibold text-slate-800 hover:text-qatar-maroon"
+                className="block text-base font-semibold text-slate-200 hover:text-amber-300"
               >
                 Contact Us
               </Link>
               <Link
                 to="/faqs"
-                className="block text-base font-semibold text-slate-800 hover:text-qatar-maroon"
+                className="block text-base font-semibold text-slate-200 hover:text-amber-300"
               >
                 FAQs
               </Link>
             </div>
 
-            <div className="border-t border-slate-900/10 pt-4 flex flex-col gap-3">
+            <div className="border-t border-white/10 pt-4 flex flex-col gap-3">
               <Link
                 to="/tours"
-                className="w-full text-center py-3 bg-slate-950 text-yellow-400 font-bold uppercase tracking-wider text-xs rounded-lg shadow-md transition"
+                className="w-full text-center py-3 bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-bold uppercase tracking-wider text-xs rounded-lg shadow-md transition"
               >
                 Book Your Experience
               </Link>
               <Link
                 to="/admin"
-                className="text-center text-xs text-slate-600 hover:text-slate-950 font-medium py-1"
+                className="text-center text-xs text-slate-300 hover:text-white font-medium py-1"
               >
                 Admin Dashboard
               </Link>
