@@ -13,6 +13,49 @@
   background: linear-gradient(135deg, #FDE047 0%, #FACC15 50%, #EAB308 100%);
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-text-shimmer {
+  background: linear-gradient(90deg, #FACC15 0%, #FEF08A 30%, #FFFDF0 50%, #FEF08A 70%, #FACC15 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    filter: drop-shadow(0 4px 20px rgba(250, 204, 21, 0.45));
+  }
+  50% {
+    filter: drop-shadow(0 4px 30px rgba(250, 204, 21, 0.85));
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3.5s ease-in-out infinite;
+}
+
+@keyframes buttonSheen {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+  }
+  40%, 100% {
+    transform: translateX(350%) skewX(-25deg);
+  }
+}
+
+.animate-button-sheen {
+  animation: buttonSheen 3.5s ease-in-out infinite;
+}
+
 @keyframes cardFadeIn {
   0% {
     opacity: 0.35;

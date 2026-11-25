@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Compass, ArrowRight, ShieldCheck, Award, HeartHandshake,
   Car, Users, Headphones, Star, CheckCircle2, Sparkles, MapPin,
-  ChevronDown, ChevronUp, Video, Anchor
+  ChevronDown, ChevronUp, Video, Anchor, Plane, Play
 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { fetchPublicTours, fetchCategories } from '../../store/slices/tourSlice';
 import { TourCard } from '../../components/tours/TourCard';
+import {
+  DesertSafariIcon,
+  DhowCruiseIcon,
+  CulturalHeritageIcon,
+  LuxuryPrivateIcon,
+  GroupToursIcon
+} from '../../components/common/CategoryIcons';
 
 export const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,6 +25,59 @@ export const HomePage: React.FC = () => {
   );
 
   const [showAllTours, setShowAllTours] = useState(false);
+  const [heroCycleKey, setHeroCycleKey] = useState(0);
+
+  // Repeating orderly animation cycle for Hero Section
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroCycleKey((prev) => prev + 1);
+    }, 8500); // 8.5 seconds per complete orderly cycle
+    return () => clearInterval(timer);
+  }, []);
+
+  // Coordinated orderly animation variants
+  const heroContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.22, // Strict orderly step-by-step delay
+        delayChildren: 0.05,
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -14,
+      transition: {
+        duration: 0.5,
+        ease: 'easeInOut',
+      },
+    },
+  };
+
+  const heroItemVariants = {
+    hidden: { opacity: 0, y: 26 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+  };
+
+  const heroBadgeVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+  };
 
   useEffect(() => {
     dispatch(fetchPublicTours({}));
@@ -185,55 +246,194 @@ export const HomePage: React.FC = () => {
         </div>
 
         {/* Main Hero Content */}
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto py-8">
-          {/* Left Hero Content: Headline, Subtitle & Action Buttons */}
-          <div className="max-w-2xl text-left text-white space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-yellow-400 text-slate-900 text-xs font-bold tracking-widest uppercase backdrop-blur-md shadow-xl">
-              <Sparkles className="w-3.5 h-3.5 text-yellow-600" />
-              <span>Imperial Tours Qatar • Premier Destination Management</span>
-            </div>
-
-            <h1 className="font-sans text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
-              Explore Qatar <br />
-              <span className="text-yellow-400 drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
-                With Imperial Tours
-              </span>
-            </h1>
-
-            <p className="text-base sm:text-lg text-slate-100 max-w-xl font-normal leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-              Discover breathtaking desert dunes, luxury dhow cruises, cultural landmarks, and personalized tours across Qatar. Create unforgettable memories with our hand-crafted experiences.
-            </p>
-
-            {/* Action Buttons */}
-            <div className="pt-2 flex flex-wrap items-center gap-4">
-              <Link
-                to="/tours"
-                className="inline-flex items-center gap-3 px-9 py-4 bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-black text-sm sm:text-base rounded-full shadow-2xl hover:shadow-yellow-400/50 transition transform hover:-translate-y-0.5 group tracking-wide"
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto py-8 min-h-[420px] flex items-center">
+          <AnimatePresence mode="wait">
+            {/* Left Hero Content: Staggered Orderly Cascade (Eyebrow -> Headline 1 -> Headline 2 -> Description -> Buttons) */}
+            <motion.div
+              key={heroCycleKey}
+              variants={heroContainerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="max-w-2xl text-left text-white space-y-6"
+            >
+              {/* Step 1: Animated Eyebrow Pill */}
+              <motion.div
+                variants={heroBadgeVariants}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-yellow-400 text-slate-900 text-xs font-bold tracking-widest uppercase backdrop-blur-md shadow-xl"
               >
-                <span>Book Tour Packages</span>
-                <ArrowRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-1 transition-transform" />
-              </Link>
+                <Sparkles className="w-3.5 h-3.5 text-yellow-600 animate-spin" style={{ animationDuration: '8s' }} />
+                <span>Imperial Tours Qatar • Premier Destination Management</span>
+              </motion.div>
 
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 px-7 py-4 bg-black/40 hover:bg-black/60 text-white font-bold text-xs uppercase tracking-wider rounded-full border border-white/70 shadow-lg transition backdrop-blur-sm hover:-translate-y-0.5"
+              {/* Step 2 & 3: Headline with Orderly Slide-Up & Shimmering Gold */}
+              <motion.h1
+                variants={heroItemVariants}
+                className="font-sans text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
               >
-                <span>Plan Your Trip</span>
-              </Link>
-            </div>
-          </div>
+                <span className="inline-block">Explore Qatar</span>
+                <br />
+                <span className="inline-block animate-text-shimmer animate-pulse-glow">
+                  With Imperial Tours
+                </span>
+              </motion.h1>
+
+              {/* Step 4: Subtitle Description */}
+              <motion.p
+                variants={heroItemVariants}
+                className="text-base sm:text-lg text-slate-100 max-w-xl font-normal leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]"
+              >
+                Discover breathtaking desert dunes, luxury dhow cruises, cultural landmarks, and personalized tours across Qatar. Create unforgettable memories with our hand-crafted experiences.
+              </motion.p>
+
+              {/* Step 5: Action Buttons (With Exact Icons from Reference Image) */}
+              <motion.div
+                variants={heroItemVariants}
+                className="pt-2 flex flex-wrap items-center gap-4"
+              >
+                {/* Primary Button: Book Tour Packages with Plane & Arrow Icons */}
+                <Link
+                  to="/tours"
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-[#F1A825] hover:bg-[#E59F1C] text-slate-950 font-black text-xs sm:text-sm rounded-full shadow-2xl hover:shadow-yellow-400/60 transition transform hover:-translate-y-1 hover:scale-105 active:scale-95 group tracking-wide relative overflow-hidden"
+                >
+                  {/* Continuous luxury light sheen sweep */}
+                  <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent skew-x-[-25deg] animate-button-sheen pointer-events-none" />
+                  <Plane className="w-4 h-4 fill-slate-950 text-slate-950 -rotate-45 relative z-10 flex-shrink-0" />
+                  <span className="relative z-10">Book Tour Packages</span>
+                  <motion.span
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                    className="relative z-10 inline-block"
+                  >
+                    <ArrowRight className="w-3.5 h-3.5 stroke-[2.8]" />
+                  </motion.span>
+                </Link>
+
+                {/* Secondary Button: PLAN YOUR TRIP with Play Icon & Uppercase Typography */}
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-black/40 hover:bg-black/60 text-white font-bold text-xs uppercase tracking-wider rounded-full border border-white/80 hover:border-yellow-400 shadow-lg transition backdrop-blur-sm hover:-translate-y-1 hover:scale-105 active:scale-95"
+                >
+                  <Play className="w-3 h-3 fill-white text-white flex-shrink-0" />
+                  <span>PLAN YOUR TRIP</span>
+                </Link>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        {/* Bottom Smooth Curved Wave Divider */}
-        <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none z-10 pointer-events-none">
-          <svg
-            className="relative block w-full h-8 sm:h-12 text-[#FAF9F6]"
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-            fill="currentColor"
-          >
-            <path d="M0,0 C200,80 400,-20 600,45 C800,110 1000,15 1200,40 L1200,120 L0,120 Z"></path>
-          </svg>
+        {/* Bottom Curved Golden Wave & 5 Luxury Categories Ribbon (Matching Reference Design) */}
+        <div className="relative z-30 w-full mt-auto">
+          {/* Sweeping Golden Wave Divider */}
+          <div className="w-full overflow-hidden leading-none -mb-[1px]">
+            <svg
+              viewBox="0 0 1440 50"
+              fill="none"
+              className="w-full h-8 sm:h-11 md:h-14 block"
+              preserveAspectRatio="none"
+            >
+              {/* Warm Ivory fill below wave */}
+              <path
+                d="M0,32 Q320,6 720,14 T1440,8 L1440,50 L0,50 Z"
+                fill="#FAF6EF"
+              />
+              {/* Glowing Golden Wave Border Line */}
+              <path
+                d="M0,32 Q320,6 720,14 T1440,8"
+                stroke="#E5A83B"
+                strokeWidth="3.5"
+                fill="none"
+                className="filter drop-shadow-[0_0_8px_rgba(229,168,59,0.5)]"
+              />
+            </svg>
+          </div>
+
+          {/* 5 Luxury Categories Horizontal Ribbon Bar */}
+          <div className="bg-[#FAF6EF] border-b border-[#E6D9C8] shadow-sm">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-[#E2D5C3]">
+                {/* 1. Desert Safari Adventures */}
+                <Link
+                  to="/tours/category/desert-safari"
+                  className="flex items-center gap-3 py-2 px-3 hover:bg-[#F3EBE0]/70 rounded-xl transition group"
+                >
+                  <DesertSafariIcon className="w-8 h-8 sm:w-9 sm:h-9 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <div className="leading-tight select-none">
+                    <span className="block text-xs sm:text-[13px] font-extrabold text-[#1E293B] group-hover:text-[#7A421D] transition-colors">
+                      Desert Safari
+                    </span>
+                    <span className="block text-xs sm:text-[13px] font-extrabold text-[#1E293B] group-hover:text-[#7A421D] transition-colors">
+                      Adventures
+                    </span>
+                  </div>
+                </Link>
+
+                {/* 2. Dhow Cruise Experiences */}
+                <Link
+                  to="/tours/category/cruise-tours"
+                  className="flex items-center gap-3 py-2 px-3 hover:bg-[#F3EBE0]/70 rounded-xl transition group"
+                >
+                  <DhowCruiseIcon className="w-8 h-8 sm:w-9 sm:h-9 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <div className="leading-tight select-none">
+                    <span className="block text-xs sm:text-[13px] font-extrabold text-[#1E293B] group-hover:text-[#7A421D] transition-colors">
+                      Dhow Cruise
+                    </span>
+                    <span className="block text-xs sm:text-[13px] font-extrabold text-[#1E293B] group-hover:text-[#7A421D] transition-colors">
+                      Experiences
+                    </span>
+                  </div>
+                </Link>
+
+                {/* 3. Cultural & Heritage Tours */}
+                <Link
+                  to="/tours/category/cultural-historical-tours"
+                  className="flex items-center gap-3 py-2 px-3 hover:bg-[#F3EBE0]/70 rounded-xl transition group"
+                >
+                  <CulturalHeritageIcon className="w-8 h-8 sm:w-9 sm:h-9 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <div className="leading-tight select-none">
+                    <span className="block text-xs sm:text-[13px] font-extrabold text-[#1E293B] group-hover:text-[#7A421D] transition-colors">
+                      Cultural &
+                    </span>
+                    <span className="block text-xs sm:text-[13px] font-extrabold text-[#1E293B] group-hover:text-[#7A421D] transition-colors">
+                      Heritage Tours
+                    </span>
+                  </div>
+                </Link>
+
+                {/* 4. Luxury & Private Tours */}
+                <Link
+                  to="/tours"
+                  className="flex items-center gap-3 py-2 px-3 hover:bg-[#F3EBE0]/70 rounded-xl transition group"
+                >
+                  <LuxuryPrivateIcon className="w-8 h-8 sm:w-9 sm:h-9 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <div className="leading-tight select-none">
+                    <span className="block text-xs sm:text-[13px] font-extrabold text-[#1E293B] group-hover:text-[#7A421D] transition-colors">
+                      Luxury &
+                    </span>
+                    <span className="block text-xs sm:text-[13px] font-extrabold text-[#1E293B] group-hover:text-[#7A421D] transition-colors">
+                      Private Tours
+                    </span>
+                  </div>
+                </Link>
+
+                {/* 5. Custom Tours for Groups */}
+                <Link
+                  to="/contact"
+                  className="flex items-center gap-3 py-2 px-3 hover:bg-[#F3EBE0]/70 rounded-xl transition group"
+                >
+                  <GroupToursIcon className="w-8 h-8 sm:w-9 sm:h-9 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <div className="leading-tight select-none">
+                    <span className="block text-xs sm:text-[13px] font-extrabold text-[#1E293B] group-hover:text-[#7A421D] transition-colors">
+                      Custom Tours
+                    </span>
+                    <span className="block text-xs sm:text-[13px] font-extrabold text-[#1E293B] group-hover:text-[#7A421D] transition-colors">
+                      for Groups
+                    </span>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -638,28 +838,34 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* SECTION 7: CALL TO ACTION */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-slate-950 via-qatar-maroon-dark to-slate-950 text-white overflow-hidden text-center border-t border-gold-500/30">
-        <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-          <span className="inline-block text-xs font-bold uppercase tracking-widest text-gold-400">
+      <section className="relative pt-20 pb-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#1C0207] via-[#2A050E] to-[#1C0207] text-white overflow-hidden text-center">
+        {/* Ambient Warm Golden Glow */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-[680px] h-[340px] bg-amber-500/10 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative z-10 max-w-3xl mx-auto space-y-5">
+          <span className="inline-block text-[11px] font-bold uppercase tracking-[0.25em] text-amber-400">
             Unforgettable Memories in the Arabian Gulf
           </span>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white tracking-tight">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
             Your Qatar Adventure Starts Here
           </h2>
-          <p className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
-            Reserve your desert safari, private dhow dinner, or cultural city tour today. Instant online request submission with personalized assistance.
-          </p>
+          <div className="space-y-1 text-xs sm:text-sm text-slate-300/90 max-w-xl mx-auto leading-relaxed">
+            <p>Reserve your desert safari, private dhow dinner, or cultural city tour today.</p>
+            <p>Instant online request submission with personalized assistance.</p>
+          </div>
 
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="pt-4 flex flex-row items-center justify-center gap-4">
             <Link
               to="/tours"
-              className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-slate-950 font-bold text-xs uppercase tracking-widest rounded-xl shadow-xl transition transform hover:scale-105"
+              className="px-8 py-3.5 bg-[#F1A825] hover:bg-[#E59F1C] text-slate-950 font-black text-xs uppercase tracking-wider rounded-full shadow-2xl transition transform hover:scale-105 active:scale-95"
             >
               Explore Our Tours
             </Link>
             <Link
               to="/contact"
-              className="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-xs uppercase tracking-widest rounded-xl transition"
+              className="px-8 py-3.5 bg-black/30 hover:bg-white/10 text-white border border-white/80 font-bold text-xs uppercase tracking-wider rounded-full transition backdrop-blur-sm hover:scale-105 active:scale-95"
             >
               Contact Concierge
             </Link>

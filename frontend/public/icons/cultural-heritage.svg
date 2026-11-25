@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 40" fill="none">
+  <!-- Ground Baseline -->
+  <path d="M 4 35 L 40 35" stroke="#7A421D" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Left Wing -->
+  <path d="M 7 35 L 7 19 L 16 19 L 16 35" 
+        fill="#FDFBF7" 
+        stroke="#7A421D" 
+        stroke-width="1.8" 
+        stroke-linejoin="round"/>
+  <!-- Left Wing Windows (2 stacked/parallel arched windows) -->
+  <path d="M 10 24 C 10 22.5 11 22 11.5 22 C 12 22 13 22.5 13 24 L 13 26 L 10 26 Z" 
+        fill="#7A421D"/>
+  <path d="M 10 30 C 10 28.5 11 28 11.5 28 C 12 28 13 28.5 13 30 L 13 32 L 10 32 Z" 
+        fill="#7A421D"/>
+        
+  <!-- Right Wing -->
+  <path d="M 28 35 L 28 19 L 37 19 L 37 35" 
+        fill="#FDFBF7" 
+        stroke="#7A421D" 
+        stroke-width="1.8" 
+        stroke-linejoin="round"/>
+  <!-- Right Wing Windows -->
+  <path d="M 31 24 C 31 22.5 32 22 32.5 22 C 33 22 34 22.5 34 24 L 34 26 L 31 26 Z" 
+        fill="#7A421D"/>
+  <path d="M 31 30 C 31 28.5 32 28 32.5 28 C 33 28 34 28.5 34 30 L 34 32 L 31 32 Z" 
+        fill="#7A421D"/>
+
+  <!-- Center Taller Pavilion with Pointed Top / Dome -->
+  <path d="M 16 35 L 16 12 C 16 12 18 8 22 6 C 26 8 28 12 28 12 L 28 35" 
+        fill="#FDFBF7" 
+        stroke="#7A421D" 
+        stroke-width="1.8" 
+        stroke-linejoin="round"/>
+  <!-- Center Archway (Pointed Islamic Doorway) -->
+  <path d="M 19 35 L 19 25 C 19 22.5 22 20.5 22 20.5 C 22 20.5 25 22.5 25 25 L 25 35" 
+        stroke="#7A421D" 
+        stroke-width="1.8" 
+        stroke-linejoin="round"/>
+  <!-- Center Upper Window / Niche -->
+  <path d="M 21 16 C 21 15 21.5 14.5 22 14.5 C 22.5 14.5 23 15 23 16 L 23 18 L 21 18 Z" 
+        fill="#7A421D"/>
+</svg>
