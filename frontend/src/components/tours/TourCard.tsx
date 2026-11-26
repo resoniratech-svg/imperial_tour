@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, Users, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Clock, Users, ArrowRight, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Tour } from '../../types';
 import { getStartingPrice, formatCurrency } from '../../utils/pricing';
 
@@ -13,25 +13,127 @@ export const TourCard: React.FC<TourCardProps> = ({ tour }) => {
   const startingPrice = startingInfo?.price;
   const isFixedGroup = tour.pricingType === 'fixed_group' || startingInfo?.isTotal;
 
-  // Fallback image based on category
-  const defaultImage =
-    tour.coverImage ||
-    '/tours/half-day-desert-safari.jpg';
+  // Build the list of images for slideshow
+  const imageList = useMemo(() => {
+    const list: string[] = [];
+    if (tour.coverImage) {
+      list.push(tour.coverImage);
+    }
+    if (tour.images && tour.images.length > 0) {
+      tour.images.forEach((img) => {
+        if (img.url && !list.includes(img.url)) {
+          list.push(img.url);
+        }
+      });
+    }
+
+    if (list.length === 0) {
+      list.push('/tours/half-day-desert-safari.jpg');
+    }
+    return list;
+  }, [tour.coverImage, tour.images]);
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Auto-cycle through images every 4.5 seconds if multiple images exist and user isn't hovering
+  useEffect(() => {
+    if (imageList.length <= 1 || isHovered) return;
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % imageList.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [imageList.length, isHovered]);
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + imageList.length) % imageList.length);
+  };
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % imageList.length);
+  };
+
+  const handleSelectDot = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex(index);
+  };
 
   return (
     <div className="group bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl hover:border-yellow-400/60 transition-all duration-300 flex flex-col transform hover:-translate-y-1">
-      {/* Cover Image & Category Badges - Clean, bright, unobstructed view */}
-      <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
-        <img
-          src={defaultImage}
-          alt={tour.title}
-          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-          loading="lazy"
-        />
+      {/* Cover Image & Multi-Image Slideshow Carousel */}
+      <div
+        className="relative aspect-[16/10] overflow-hidden bg-slate-950 select-none"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Slides Images */}
+        {imageList.map((imgSrc, idx) => (
+          <img
+            key={imgSrc + idx}
+            src={imgSrc}
+            alt={`${tour.title} - view ${idx + 1}`}
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-105 ${
+              idx === currentImageIndex
+                ? 'opacity-100 z-0'
+                : 'opacity-0 pointer-events-none'
+            }`}
+            loading="lazy"
+          />
+        ))}
+
+        {/* Left Arrow Button for manual browsing */}
+        {imageList.length > 1 && (
+          <button
+            type="button"
+            onClick={handlePrev}
+            className="absolute left-2.5 top-1/2 -translate-y-1/2 z-20 p-1.5 sm:p-2 rounded-full bg-slate-950/70 hover:bg-slate-950 text-white hover:text-amber-300 border border-white/25 shadow-lg backdrop-blur-sm transition-all transform hover:scale-110 active:scale-95"
+            aria-label="Previous slide"
+            title="Previous image"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+        )}
+
+        {/* Right Arrow Button for manual browsing */}
+        {imageList.length > 1 && (
+          <button
+            type="button"
+            onClick={handleNext}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 z-20 p-1.5 sm:p-2 rounded-full bg-slate-950/70 hover:bg-slate-950 text-white hover:text-amber-300 border border-white/25 shadow-lg backdrop-blur-sm transition-all transform hover:scale-110 active:scale-95"
+            aria-label="Next slide"
+            title="Next image"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        )}
+
+        {/* Slideshow Pagination Indicator Dots */}
+        {imageList.length > 1 && (
+          <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-slate-950/65 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15 shadow-md">
+            {imageList.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={(e) => handleSelectDot(e, idx)}
+                className={`transition-all rounded-full ${
+                  idx === currentImageIndex
+                    ? 'w-4 h-1.5 bg-yellow-400 shadow-sm'
+                    : 'w-1.5 h-1.5 bg-white/60 hover:bg-white'
+                }`}
+                aria-label={`Go to image ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Category Pill */}
         {tour.category && (
-          <div className="absolute top-3 left-3 z-10">
+          <div className="absolute top-3 left-3 z-10 pointer-events-none">
             <span className="px-3 py-1 rounded-full text-[10.5px] font-bold tracking-wider uppercase bg-slate-950/85 text-yellow-400 backdrop-blur-md border border-yellow-400/30 shadow-md">
               {tour.category.name}
             </span>
@@ -40,7 +142,7 @@ export const TourCard: React.FC<TourCardProps> = ({ tour }) => {
 
         {/* Duration / Tag Pill */}
         {tour.duration && (
-          <div className="absolute top-3 right-3 z-10">
+          <div className="absolute top-3 right-3 z-10 pointer-events-none">
             <span className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[10.5px] font-semibold bg-white/95 text-slate-800 backdrop-blur-md shadow-md">
               <Clock className="w-3 h-3 text-qatar-maroon" />
               {tour.duration}

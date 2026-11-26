@@ -215,7 +215,32 @@ export const FALLBACK_TOURS: Tour[] = ([
     ],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "13196fb7-d39e-48cf-9cd0-f489e46c2179",
+        "tourId": "117817eb-a4df-44fe-813c-081b14ffe408",
+        "url": "/tours/half-day-desert-safari.jpg",
+        "alt": "half-day-desert-safari main photo",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "36f3a859-807c-460b-a1d2-7468ed5ff06d",
+        "tourId": "117817eb-a4df-44fe-813c-081b14ffe408",
+        "url": "/tours/half-day-desert-safari-2.jpg",
+        "alt": "Sunset Desert Safari with Land Cruiser, Camels, ATV and Buggy at Inland Sea",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "8089b97a-16bb-453b-a5e6-9519197c4fbf",
+        "tourId": "117817eb-a4df-44fe-813c-081b14ffe408",
+        "url": "/tours/half-day-desert-safari-3.jpg",
+        "alt": "Couple riding quad bikes across Qatar golden sand dunes",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "b6e01285-a23d-461a-85e8-f4440c1f061a",
@@ -369,7 +394,32 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "e77fe7c2-3fbf-425c-a4b5-206155677b09",
+        "tourId": "b6e01285-a23d-461a-85e8-f4440c1f061a",
+        "url": "/tours/full-day-desert-safari.jpg",
+        "alt": "full-day-desert-safari main photo",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "a2899944-30f8-4151-bf33-de2c48b9a790",
+        "tourId": "b6e01285-a23d-461a-85e8-f4440c1f061a",
+        "url": "/tours/full-day-desert-safari-2.jpg",
+        "alt": "Three Land Cruisers on dunes with sandboards at golden sunset",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "00531dff-ba08-4bf1-bdc6-9f0d37fff47d",
+        "tourId": "b6e01285-a23d-461a-85e8-f4440c1f061a",
+        "url": "/tours/full-day-desert-safari-3.jpg",
+        "alt": "Tourist riding camel with traditional red saddle in Qatar desert",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "06286b3d-9022-4e84-bf31-7dc39dafb9d2",
@@ -535,7 +585,24 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "overnight-img-1",
+        "tourId": "06286b3d-9022-4e84-bf31-7dc39dafb9d2",
+        "url": "/tours/overnight-desert-safari.jpg",
+        "alt": "Overnight Bedouin Camp under Qatar Desert Sky",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "overnight-img-2",
+        "tourId": "06286b3d-9022-4e84-bf31-7dc39dafb9d2",
+        "url": "/tours/overnight-desert-safari-2.jpg",
+        "alt": "Guests dining under the stars with campfire at Qatar desert camp",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "23105489-5cc9-4048-bdd8-cea0da8568ce",
@@ -681,7 +748,24 @@ export const FALLBACK_TOURS: Tour[] = ([
     ],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "safari-aquarium-img-1",
+        "tourId": "23105489-5cc9-4048-bdd8-cea0da8568ce",
+        "url": "/tours/half-day-safari-with-aquarium.jpg",
+        "alt": "Qatar desert safari 4x4 dune bashing adventure",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "safari-aquarium-img-2",
+        "tourId": "23105489-5cc9-4048-bdd8-cea0da8568ce",
+        "url": "/tours/half-day-safari-with-aquarium-2.jpg",
+        "alt": "Visitor walking through Qatar underwater glass aquarium tunnel",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "ee789d2d-6f0d-4c86-808a-ddd3625ba4d9",
@@ -753,7 +837,24 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "romantic-safari-img-1",
+        "tourId": "ee789d2d-6f0d-4c86-808a-ddd3625ba4d9",
+        "url": "/tours/full-day-safari-with-romantic-dinner.jpg",
+        "alt": "Couple enjoying romantic sunset across Qatar golden dunes",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "romantic-safari-img-2",
+        "tourId": "ee789d2d-6f0d-4c86-808a-ddd3625ba4d9",
+        "url": "/tours/full-day-safari-with-romantic-dinner-2.jpg",
+        "alt": "Romantic luxury desert dinner under starry Milky Way sky in Qatar",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "fd74a4c6-a790-4aef-819b-d402f7322157",
@@ -761,7 +862,7 @@ export const FALLBACK_TOURS: Tour[] = ([
     "slug": "night-safari-with-bonfire",
     "shortDesc": "Experience the desert at night with dune bashing, a bonfire, and stargazing from 20:00 to midnight.",
     "description": "Discover the enchanting beauty of Qatar's desert after dark. Starting at 8 PM, this night safari takes you on an exhilarating dune bashing adventure under the starlit sky. Visit a desert camp where you can gather around a bonfire, enjoy the peaceful desert atmosphere, and create lasting memories. The tour runs until midnight, giving you plenty of time to experience the desert's nocturnal magic.",
-    "duration": "20:00–00:00",
+    "duration": "20:00\u201300:00",
     "availability": null,
     "categoryId": "e9ee2f5c-0225-4fe6-945b-7a9229a5ddd4",
     "coverImage": "/tours/night-safari-with-bonfire.jpg",
@@ -865,7 +966,32 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "night-bonfire-img-1",
+        "tourId": "fd74a4c6-a790-4aef-819b-d402f7322157",
+        "url": "/tours/night-safari-with-bonfire.jpg",
+        "alt": "Night desert safari campfire in Qatar",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "night-bonfire-img-2",
+        "tourId": "fd74a4c6-a790-4aef-819b-d402f7322157",
+        "url": "/tours/night-safari-with-bonfire-2.jpg",
+        "alt": "Friends gathering around warm desert campfire on Arabic rugs under the Milky Way",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "night-bonfire-img-3",
+        "tourId": "fd74a4c6-a790-4aef-819b-d402f7322157",
+        "url": "/tours/night-safari-with-bonfire-3.jpg",
+        "alt": "Illuminated camping tents and desert bonfire under starry night sky",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "db802d03-0694-4c68-a766-1da03a806324",
@@ -983,7 +1109,32 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "scuba-img-1",
+        "tourId": "db802d03-0694-4c68-a766-1da03a806324",
+        "url": "/tours/scuba-diving.jpg",
+        "alt": "Scuba Diving in Qatar",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "scuba-img-2",
+        "tourId": "db802d03-0694-4c68-a766-1da03a806324",
+        "url": "/tours/scuba-diving-2.jpg",
+        "alt": "Scuba divers diving off boat into crystal clear waters",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "scuba-img-3",
+        "tourId": "db802d03-0694-4c68-a766-1da03a806324",
+        "url": "/tours/scuba-diving-3.jpg",
+        "alt": "Underwater scuba diving experience with coral reef and tropical fish",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "20566147-9412-46cc-86c1-c352ec0b7ac7",
@@ -1095,7 +1246,24 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "horse-riding-img-1",
+        "tourId": "20566147-9412-46cc-86c1-c352ec0b7ac7",
+        "url": "/tours/horse-riding-tour.jpg",
+        "alt": "Traditional Arabian horse riding experience in Qatar",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "horse-riding-img-2",
+        "tourId": "20566147-9412-46cc-86c1-c352ec0b7ac7",
+        "url": "/tours/horse-riding-tour-2.jpg",
+        "alt": "Horseback riding on Qatar desert dunes overlooking the coast at sunrise",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "628de181-64ca-49be-975b-2cbdcad2f18b",
@@ -1210,7 +1378,24 @@ export const FALLBACK_TOURS: Tour[] = ([
     ],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "quad-bike-img-1",
+        "tourId": "628de181-64ca-49be-975b-2cbdcad2f18b",
+        "url": "/tours/quad-bike-tour.jpg",
+        "alt": "Quad biking adventure on Qatar sand dunes",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "quad-bike-img-2",
+        "tourId": "628de181-64ca-49be-975b-2cbdcad2f18b",
+        "url": "/tours/quad-bike-tour-2.jpg",
+        "alt": "Travelers riding red quad bikes across Qatar golden sand dunes",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "5cebd543-4ba8-43d2-8f1d-00c8a3264dd0",
@@ -1282,7 +1467,24 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "jetski-img-1",
+        "tourId": "5cebd543-4ba8-43d2-8f1d-00c8a3264dd0",
+        "url": "/tours/jet-ski-tour.jpg",
+        "alt": "Jet ski adventure across Qatar waters",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "jetski-img-2",
+        "tourId": "5cebd543-4ba8-43d2-8f1d-00c8a3264dd0",
+        "url": "/tours/jet-ski-tour-2.jpg",
+        "alt": "High speed Sea-Doo jet ski riding across Doha Bay in front of West Bay towers",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "65872515-c99d-484a-9361-b08ed257e339",
@@ -1414,7 +1616,32 @@ export const FALLBACK_TOURS: Tour[] = ([
     ],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "kayak-img-1",
+        "tourId": "65872515-c99d-484a-9361-b08ed257e339",
+        "url": "/tours/kayaking-tour.jpg",
+        "alt": "Guided kayaking tour through Al Thakira mangrove channels in Qatar",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "kayak-img-2",
+        "tourId": "65872515-c99d-484a-9361-b08ed257e339",
+        "url": "/tours/kayaking-tour-2.jpg",
+        "alt": "Paddling colorful kayaks into lush green mangrove forest in Qatar",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "kayak-img-3",
+        "tourId": "65872515-c99d-484a-9361-b08ed257e339",
+        "url": "/tours/kayaking-tour-3.jpg",
+        "alt": "Kayakers paddling in single file through calm mangrove waterways",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "c2d18055-072d-4a24-835a-57634fc8e037",
@@ -1513,7 +1740,24 @@ export const FALLBACK_TOURS: Tour[] = ([
     ],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "water-sports-img-1",
+        "tourId": "c2d18055-072d-4a24-835a-57634fc8e037",
+        "url": "/tours/water-sports-tour.jpg",
+        "alt": "Banana boat ride towed by speedboat on turquoise waters",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "water-sports-img-2",
+        "tourId": "c2d18055-072d-4a24-835a-57634fc8e037",
+        "url": "/tours/water-sports-tour-2.jpg",
+        "alt": "Friends having fun on yellow banana boat water sports ride",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "f5e46af6-1341-4868-9c46-3b07d7ee2de0",
@@ -1653,7 +1897,24 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "dhow-cruise-img-1",
+        "tourId": "f5e46af6-1341-4868-9c46-3b07d7ee2de0",
+        "url": "/tours/dhow-cruise-tour.jpg",
+        "alt": "Traditional wooden dhow cruise with passengers along Doha Bay",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "dhow-cruise-img-2",
+        "tourId": "f5e46af6-1341-4868-9c46-3b07d7ee2de0",
+        "url": "/tours/dhow-cruise-tour-2.jpg",
+        "alt": "Night illuminated dhow sailing past glowing West Bay Doha skyline",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "28e8d41b-596c-4079-b03e-482275f8c02c",
@@ -1831,7 +2092,32 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "dhow-bbq-img-1",
+        "tourId": "28e8d41b-596c-4079-b03e-482275f8c02c",
+        "url": "/tours/dhow-cruise-with-dinner-bbq.jpg",
+        "alt": "Luxury Doha Dhow Cruise dinner service with family and West Bay skyline view",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "dhow-bbq-img-2",
+        "tourId": "28e8d41b-596c-4079-b03e-482275f8c02c",
+        "url": "/tours/dhow-cruise-with-dinner-bbq-2.jpg",
+        "alt": "Illuminated luxury dinner dhow sailing on Doha waters at dusk",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "dhow-bbq-img-3",
+        "tourId": "28e8d41b-596c-4079-b03e-482275f8c02c",
+        "url": "/tours/dhow-cruise-with-dinner-bbq-3.jpg",
+        "alt": "Upper deck buffet dining with fairy lights against city skyline",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "46943e0a-9886-4b8c-90c9-c7d2d375ff96",
@@ -1967,7 +2253,40 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "museum-img-1",
+        "tourId": "46943e0a-9886-4b8c-90c9-c7d2d375ff96",
+        "url": "/tours/museum-tour.jpg",
+        "alt": "National Museum of Qatar (NMoQ) iconic desert rose architecture",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "museum-img-2",
+        "tourId": "46943e0a-9886-4b8c-90c9-c7d2d375ff96",
+        "url": "/tours/museum-tour-2.jpg",
+        "alt": "Museum of Islamic Art (MIA) geometric architectural entrance with palm trees",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "museum-img-3",
+        "tourId": "46943e0a-9886-4b8c-90c9-c7d2d375ff96",
+        "url": "/tours/museum-tour-3.jpg",
+        "alt": "Museum of Islamic Art (MIA) illuminated at sunset in Doha",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "museum-img-4",
+        "tourId": "46943e0a-9886-4b8c-90c9-c7d2d375ff96",
+        "url": "/tours/museum-tour-4.jpg",
+        "alt": "National Museum of Qatar (NMoQ) with lagoon fountains and kinetic art sculptures",
+        "sortOrder": 3,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "dc841b0b-b77f-4650-8028-c3b6b2dc6e6a",
@@ -2088,7 +2407,32 @@ export const FALLBACK_TOURS: Tour[] = ([
     ],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "doha-city-img-1",
+        "tourId": "dc841b0b-b77f-4650-8028-c3b6b2dc6e6a",
+        "url": "/tours/doha-city-tour.jpg",
+        "alt": "Panoramic view of Doha Corniche and modern skyline",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "doha-city-img-2",
+        "tourId": "dc841b0b-b77f-4650-8028-c3b6b2dc6e6a",
+        "url": "/tours/doha-city-tour-2.jpg",
+        "alt": "Iconic Katara Crescent Towers in Lusail Doha",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "doha-city-img-3",
+        "tourId": "dc841b0b-b77f-4650-8028-c3b6b2dc6e6a",
+        "url": "/tours/doha-city-tour-3.jpg",
+        "alt": "Aerial view of West Bay skyline with Burj Doha and Tornado Tower",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "37d0d82a-b550-4828-8857-953ab91d4b65",
@@ -2208,7 +2552,32 @@ export const FALLBACK_TOURS: Tour[] = ([
     ],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "city-tour-with-lunch-img-1",
+        "tourId": "37d0d82a-b550-4828-8857-953ab91d4b65",
+        "url": "/tours/city-tour-with-lunch.jpg",
+        "alt": "Doha City Tour with lunch at outdoor seaside restaurant with West Bay skyline view",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "city-tour-with-lunch-img-2",
+        "tourId": "37d0d82a-b550-4828-8857-953ab91d4b65",
+        "url": "/tours/city-tour-with-lunch-2.jpg",
+        "alt": "Iconic West Bay Doha skyline towers and traditional dhow on turquoise waters",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "city-tour-with-lunch-img-3",
+        "tourId": "37d0d82a-b550-4828-8857-953ab91d4b65",
+        "url": "/tours/city-tour-with-lunch-3.jpg",
+        "alt": "Katara Crescent Towers in Lusail Marina view from the Arabian Gulf",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "0480a276-d216-4150-872e-608638929181",
@@ -2317,19 +2686,44 @@ export const FALLBACK_TOURS: Tour[] = ([
       {
         "id": "78a02607-af24-4b7c-9e77-4293b5c91196",
         "tourId": "0480a276-d216-4150-872e-608638929181",
-        "title": "Sea Tour – 2 hours",
+        "title": "Sea Tour \u2013 2 hours",
         "items": "[\"Doha Corniche\",\"West Bay skyline\",\"The Pearl Island (Porto Arabia)\"]",
         "sortOrder": 0
       },
       {
         "id": "f8e1f1d6-6e91-4912-8415-17f3855442f0",
         "tourId": "0480a276-d216-4150-872e-608638929181",
-        "title": "Land Tour – 2 hours",
+        "title": "Land Tour \u2013 2 hours",
         "items": "[\"Lusail Fairmont\",\"Katara Towers\",\"Lusail Stadium\",\"Stadium 974\"]",
         "sortOrder": 1
       }
     ],
-    "images": []
+    "images": [
+      {
+        "id": "city-tour-sea-land-img-1",
+        "tourId": "0480a276-d216-4150-872e-608638929181",
+        "url": "/tours/city-tour-from-sea-and-land.jpg",
+        "alt": "Museum of Islamic Art and Doha skyline view from the sea",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "city-tour-sea-land-img-2",
+        "tourId": "0480a276-d216-4150-872e-608638929181",
+        "url": "/tours/city-tour-from-sea-and-land-2.jpg",
+        "alt": "Family admiring the iconic Katara Crescent Towers at sunset in Lusail",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "city-tour-sea-land-img-3",
+        "tourId": "0480a276-d216-4150-872e-608638929181",
+        "url": "/tours/city-tour-from-sea-and-land-3.jpg",
+        "alt": "Illuminated Doha West Bay skyline reflecting on the water plaza at twilight",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "8ab3e9cc-c748-4641-ab14-b0b3f55749f8",
@@ -2437,7 +2831,40 @@ export const FALLBACK_TOURS: Tour[] = ([
         "sortOrder": 0
       }
     ],
-    "images": []
+    "images": [
+      {
+        "id": "speedboat-img-1",
+        "tourId": "8ab3e9cc-c748-4641-ab14-b0b3f55749f8",
+        "url": "/tours/city-tour-speedboat.jpg",
+        "alt": "Thrilling yellow speedboat ride along Doha coast and skyline",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "speedboat-img-2",
+        "tourId": "8ab3e9cc-c748-4641-ab14-b0b3f55749f8",
+        "url": "/tours/city-tour-speedboat-2.jpg",
+        "alt": "Speedboat and water adventure approaching Katara Crescent Towers in Lusail",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "speedboat-img-3",
+        "tourId": "8ab3e9cc-c748-4641-ab14-b0b3f55749f8",
+        "url": "/tours/city-tour-speedboat-3.jpg",
+        "alt": "Speedboat racing across open Arabian Gulf with Doha West Bay skyline",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "speedboat-img-4",
+        "tourId": "8ab3e9cc-c748-4641-ab14-b0b3f55749f8",
+        "url": "/tours/city-tour-speedboat-4.jpg",
+        "alt": "Luxury motor yacht and speedboat at Lusail Marina waterfront",
+        "sortOrder": 3,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "ecf344d2-0d8e-4527-b681-5f9c181f55ed",
@@ -2557,7 +2984,40 @@ export const FALLBACK_TOURS: Tour[] = ([
     ],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "grand-doha-img-1",
+        "tourId": "ecf344d2-0d8e-4527-b681-5f9c181f55ed",
+        "url": "/tours/grand-doha-city-tour.jpg",
+        "alt": "Historic architecture and cultural heritage in Souq Waqif Doha",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "grand-doha-img-2",
+        "tourId": "ecf344d2-0d8e-4527-b681-5f9c181f55ed",
+        "url": "/tours/grand-doha-city-tour-2.jpg",
+        "alt": "Katara Cultural Village night street overlooking illuminated Doha West Bay skyline",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "grand-doha-img-3",
+        "tourId": "ecf344d2-0d8e-4527-b681-5f9c181f55ed",
+        "url": "/tours/grand-doha-city-tour-3.jpg",
+        "alt": "Evening rooftop lounge dining with panoramic city skyline views",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "grand-doha-img-4",
+        "tourId": "ecf344d2-0d8e-4527-b681-5f9c181f55ed",
+        "url": "/tours/grand-doha-city-tour-4.jpg",
+        "alt": "Stunning sunset view of Doha West Bay modern towers from the Corniche",
+        "sortOrder": 3,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "4085dbd8-d1eb-49fa-a100-57c23c895020",
@@ -2669,7 +3129,32 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "north-qatar-img-1",
+        "tourId": "4085dbd8-d1eb-49fa-a100-57c23c895020",
+        "url": "/tours/north-of-qatar-tour.jpg",
+        "alt": "Al Zubarah UNESCO World Heritage Fort in Northern Qatar under open desert sky",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "north-qatar-img-2",
+        "tourId": "4085dbd8-d1eb-49fa-a100-57c23c895020",
+        "url": "/tours/north-of-qatar-tour-2.jpg",
+        "alt": "Northern Qatar landmarks collage: Zekreet rock formations, Al Thakira mangroves, and historic ruins",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "north-qatar-img-3",
+        "tourId": "4085dbd8-d1eb-49fa-a100-57c23c895020",
+        "url": "/tours/north-of-qatar-tour-3.jpg",
+        "alt": "Historic Al Zubarah Fort entrance with ancient cannon and Qatar flag",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "9afa5c85-c5e2-4ca6-9b05-d83e0ae6b70b",
@@ -2789,7 +3274,24 @@ export const FALLBACK_TOURS: Tour[] = ([
     ],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "cultural-img-1",
+        "tourId": "9afa5c85-c5e2-4ca6-9b05-d83e0ae6b70b",
+        "url": "/tours/cultural-tour.jpg",
+        "alt": "Qatar cultural heritage and traditional architecture",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "cultural-img-2",
+        "tourId": "9afa5c85-c5e2-4ca6-9b05-d83e0ae6b70b",
+        "url": "/tours/cultural-tour-2.jpg",
+        "alt": "Traditional pigeon towers at Katara Cultural Village in Doha",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "453e5048-5fd7-4601-aaaf-deb1c4566659",
@@ -2901,7 +3403,24 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "west-coast-img-1",
+        "tourId": "453e5048-5fd7-4601-aaaf-deb1c4566659",
+        "url": "/tours/west-coast-tour.jpg",
+        "alt": "Zekreet and Ras Abrouq iconic mushroom rock formation at sunset",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "west-coast-img-2",
+        "tourId": "453e5048-5fd7-4601-aaaf-deb1c4566659",
+        "url": "/tours/west-coast-tour-2.jpg",
+        "alt": "Historic coastal fort and cannons along Qatar scenic western coastline",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "36a6138f-8c5b-42cd-8d5d-63bcb794fd35",
@@ -3019,14 +3538,39 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "north-kayak-img-1",
+        "tourId": "36a6138f-8c5b-42cd-8d5d-63bcb794fd35",
+        "url": "/tours/north-of-qatar-with-kayak-tour.jpg",
+        "alt": "Kayakers paddling through the serene Al Thakira mangrove channels in northern Qatar",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "north-kayak-img-2",
+        "tourId": "36a6138f-8c5b-42cd-8d5d-63bcb794fd35",
+        "url": "/tours/north-of-qatar-with-kayak-tour-2.jpg",
+        "alt": "Group of colorful kayaks on calm turquoise waters by lush green mangroves",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "north-kayak-img-3",
+        "tourId": "36a6138f-8c5b-42cd-8d5d-63bcb794fd35",
+        "url": "/tours/north-of-qatar-with-kayak-tour-3.jpg",
+        "alt": "Friends floating together in crystal clear turquoise Arabian Gulf waters with life vests",
+        "sortOrder": 2,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   },
   {
     "id": "237cc891-43de-46ae-b607-40889a01b1d3",
     "title": "Camel Race Tour",
     "slug": "camel-race-tour",
     "shortDesc": "Witness the thrilling traditional camel races in a 4x4 vehicle with a professional guide.",
-    "description": "Experience one of Qatar's most exciting traditional sports – camel racing. Watch as magnificent camels thunder down the racetrack in this uniquely Qatari spectacle. Travel in a comfortable 4x4 vehicle alongside the racetrack to follow the action. An English-speaking guide explains the sport's traditions, the training of the camels, and its cultural significance in Qatari heritage.",
+    "description": "Experience one of Qatar's most exciting traditional sports \u2013 camel racing. Watch as magnificent camels thunder down the racetrack in this uniquely Qatari spectacle. Travel in a comfortable 4x4 vehicle alongside the racetrack to follow the action. An English-speaking guide explains the sport's traditions, the training of the camels, and its cultural significance in Qatari heritage.",
     "duration": null,
     "availability": null,
     "categoryId": "0e89c38e-5f0b-43a3-95e4-bc84868c43db",
@@ -3131,6 +3675,23 @@ export const FALLBACK_TOURS: Tour[] = ([
     "exclusions": [],
     "addons": [],
     "itineraryItems": [],
-    "images": []
+    "images": [
+      {
+        "id": "camel-race-img-1",
+        "tourId": "237cc891-43de-46ae-b607-40889a01b1d3",
+        "url": "/tours/camel-race-tour.jpg",
+        "alt": "High speed camel race action at Al Shahaniya Qatar",
+        "sortOrder": 0,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "camel-race-img-2",
+        "tourId": "237cc891-43de-46ae-b607-40889a01b1d3",
+        "url": "/tours/camel-race-tour-2.jpg",
+        "alt": "Traditional camel racing festival with colorful saddles in Qatar",
+        "sortOrder": 1,
+        "createdAt": "2026-11-25T10:00:00.000Z"
+      }
+    ]
   }
 ] as any) as Tour[];

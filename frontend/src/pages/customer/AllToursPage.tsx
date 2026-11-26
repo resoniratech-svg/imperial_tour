@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useParams, Link } from 'react-router-dom';
-import { Search, Filter, SlidersHorizontal, Compass, Sparkles } from 'lucide-react';
+import { Search, Compass, Sparkles } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { fetchPublicTours, fetchCategories } from '../../store/slices/tourSlice';
@@ -90,9 +90,9 @@ export const AllToursPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
         {/* Filters & Search Header */}
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm mb-8 space-y-4">
-          <div className="flex flex-col md:flex-row items-center gap-4 justify-between">
+          <div className="flex items-center gap-4">
             {/* Search Input */}
-            <div className="relative w-full md:w-96">
+            <div className="relative w-full">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
@@ -101,27 +101,6 @@ export const AllToursPage: React.FC = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder:text-slate-400 outline-none focus:border-gold-500 transition"
               />
-            </div>
-
-            {/* Sort & Count */}
-            <div className="w-full md:w-auto flex items-center justify-between gap-4">
-              <span className="text-xs font-semibold text-slate-500">
-                Showing <strong className="text-slate-900">{sortedTours.length}</strong> of {tours.length} tours
-              </span>
-
-              <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-slate-400" />
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
-                  className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:border-gold-500"
-                >
-                  <option value="recommended">Featured & Recommended</option>
-                  <option value="price-asc">Price: Low to High</option>
-                  <option value="price-desc">Price: High to Low</option>
-                  <option value="duration">Duration</option>
-                </select>
-              </div>
             </div>
           </div>
 

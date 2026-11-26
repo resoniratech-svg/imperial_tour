@@ -838,10 +838,10 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* SECTION 7: CALL TO ACTION */}
-      <section className="relative pt-20 pb-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#1C0207] via-[#2A050E] to-[#1C0207] text-white overflow-hidden text-center">
+      <section className="relative pt-20 pb-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#020B1A] via-[#051630] to-[#020B1A] text-white overflow-hidden text-center">
         {/* Ambient Warm Golden Glow */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-[680px] h-[340px] bg-amber-500/10 rounded-full blur-3xl" />
+          <div className="w-[680px] h-[340px] bg-amber-500/15 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 max-w-3xl mx-auto space-y-5">

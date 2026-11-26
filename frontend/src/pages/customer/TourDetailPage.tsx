@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
   Clock, Calendar, Users, CheckCircle2, XCircle, ShieldCheck,
   MapPin, Share2, ArrowRight, MessageCircle, AlertCircle, Info, Sparkles,
-  Maximize2, X
+  Maximize2, X, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
@@ -27,6 +27,25 @@ export const TourDetailPage: React.FC = () => {
   );
   const [selectedAddons, setSelectedAddons] = useState<Record<string, number>>({});
   const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
+  const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+
+  const galleryImages = React.useMemo(() => {
+    const list: string[] = [];
+    if (tour?.coverImage) {
+      list.push(tour.coverImage);
+    }
+    if (tour?.images && tour.images.length > 0) {
+      tour.images.forEach((img) => {
+        if (img.url && !list.includes(img.url)) {
+          list.push(img.url);
+        }
+      });
+    }
+    if (list.length === 0 && tour?.coverImage) {
+      list.push(tour.coverImage);
+    }
+    return list;
+  }, [tour?.coverImage, tour?.images]);
 
   useEffect(() => {
     if (slug) {
@@ -193,23 +212,47 @@ export const TourDetailPage: React.FC = () => {
         </div>
 
         {/* Dedicated Tour Photo Showcase - Shows the FULL uncropped photo with ambient glow */}
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl mb-10 bg-slate-950 border border-slate-200/80 group">
+        <div className="relative rounded-3xl overflow-hidden shadow-2xl mb-6 bg-slate-950 border border-slate-200/80 group">
           {/* Ambient blurred backdrop so any image aspect ratio fits naturally */}
           <img
-            src={tour.coverImage || '/tours/half-day-desert-safari.jpg'}
+            src={galleryImages[activeImageIndex] || tour.coverImage || '/tours/half-day-desert-safari.jpg'}
             alt={tour.title}
-            className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-35 scale-110 pointer-events-none"
+            className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-35 scale-110 pointer-events-none transition-all duration-700"
           />
 
           {/* Main uncropped full photo display */}
           <div className="relative w-full max-h-[580px] min-h-[340px] sm:min-h-[440px] flex items-center justify-center p-2 sm:p-4">
             <img
-              src={tour.coverImage || '/tours/half-day-desert-safari.jpg'}
-              alt={tour.title}
+              src={galleryImages[activeImageIndex] || tour.coverImage || '/tours/half-day-desert-safari.jpg'}
+              alt={`${tour.title} view ${activeImageIndex + 1}`}
               onClick={() => setLightboxOpen(true)}
-              className="w-full max-h-[540px] object-contain rounded-2xl shadow-xl cursor-zoom-in transition-transform duration-500 group-hover:scale-[1.01]"
+              className="w-full max-h-[540px] object-contain rounded-2xl shadow-xl cursor-zoom-in transition-all duration-500 group-hover:scale-[1.01]"
             />
           </div>
+
+          {/* Left and Right Navigation Arrows */}
+          {galleryImages.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={() => setActiveImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-slate-950/75 hover:bg-slate-950 text-white hover:text-amber-300 border border-white/20 shadow-xl backdrop-blur-md transition-all transform hover:scale-110 active:scale-95"
+                aria-label="Previous image"
+                title="Previous photo"
+              >
+                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveImageIndex((prev) => (prev + 1) % galleryImages.length)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-slate-950/75 hover:bg-slate-950 text-white hover:text-amber-300 border border-white/20 shadow-xl backdrop-blur-md transition-all transform hover:scale-110 active:scale-95"
+                aria-label="Next image"
+                title="Next photo"
+              >
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
+            </>
+          )}
 
           {/* View Full Photo Action Button */}
           <button
@@ -220,6 +263,26 @@ export const TourDetailPage: React.FC = () => {
             <span>View Full Photo</span>
           </button>
         </div>
+
+        {/* Thumbnail Navigation Strip */}
+        {galleryImages.length > 1 && (
+          <div className="flex items-center justify-center gap-3 mb-10">
+            {galleryImages.map((src, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setActiveImageIndex(idx)}
+                className={`relative w-24 h-16 rounded-xl overflow-hidden border-2 transition-all shadow-md ${
+                  idx === activeImageIndex
+                    ? 'border-yellow-400 scale-105 ring-4 ring-yellow-400/25'
+                    : 'border-slate-300 opacity-60 hover:opacity-100 hover:border-amber-400'
+                }`}
+              >
+                <img src={src} alt="" className="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Content Layout: Left 2 Cols (Details, Pricing Table, Itinerary), Right 1 Col (Dynamic Booking Widget) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -596,8 +659,37 @@ export const TourDetailPage: React.FC = () => {
           >
             <X className="w-6 h-6" />
           </button>
+
+          {/* Left Arrow in Lightbox */}
+          {galleryImages.length > 1 && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+              }}
+              className="absolute left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition z-50 shadow-lg"
+              title="Previous"
+            >
+              <ChevronLeft className="w-7 h-7" />
+            </button>
+          )}
+
+          {/* Right Arrow in Lightbox */}
+          {galleryImages.length > 1 && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveImageIndex((prev) => (prev + 1) % galleryImages.length);
+              }}
+              className="absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition z-50 shadow-lg"
+              title="Next"
+            >
+              <ChevronRight className="w-7 h-7" />
+            </button>
+          )}
+
           <img
-            src={tour.coverImage || '/tours/half-day-desert-safari.jpg'}
+            src={galleryImages[activeImageIndex] || tour.coverImage || '/tours/half-day-desert-safari.jpg'}
             alt={tour.title}
             className="max-w-[95vw] max-h-[92vh] object-contain rounded-xl shadow-2xl select-none"
             onClick={(e) => e.stopPropagation()}

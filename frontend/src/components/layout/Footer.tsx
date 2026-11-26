@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
   const address = settings.address || '';
 
   return (
-    <footer className="relative bg-gradient-to-b from-[#1C0207] via-[#2A050E] to-[#120104] text-slate-200 overflow-hidden pt-0 pb-8">
+    <footer className="relative bg-gradient-to-b from-[#020B1A] via-[#051733] to-[#010814] text-slate-200 overflow-hidden pt-0 pb-8">
       {/* 1. Glowing Doha Skyline Silhouette & Full Laser Horizon Line */}
       <div className="relative w-full overflow-hidden flex justify-center items-center py-1 -mt-2 mb-3">
         <img
@@ -41,7 +41,7 @@ export const Footer: React.FC = () => {
                 <Crown className="w-3.5 h-3.5 text-amber-400" />
                 Premium Qatar DMC
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 border border-pink-500/40 text-emerald-400 text-[11px] font-semibold shadow-xs">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 border border-emerald-500/40 text-emerald-400 text-[11px] font-semibold shadow-xs">
                 <Shield className="w-3.5 h-3.5 text-emerald-400" />
                 100% Insured Fleet
               </span>

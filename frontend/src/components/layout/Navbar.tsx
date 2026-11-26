@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Menu, X, Globe, ChevronDown, Compass, ShieldCheck,
@@ -13,6 +13,7 @@ export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [toursDropdownOpen, setToursDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const location = useLocation();
   const dispatch = useDispatch();
@@ -34,6 +35,17 @@ export const Navbar: React.FC = () => {
     setMobileMenuOpen(false);
     setToursDropdownOpen(false);
   }, [location.pathname]);
+
+  // Close tours dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setToursDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const navBg = isHome && !isScrolled
     ? 'bg-[#020B1A]/95 backdrop-blur-md border-b border-amber-400/40 shadow-md'
@@ -79,9 +91,9 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Main Navbar with Royal Navy & Golden Light Ribbon Wave Overlay */}
-        <div className="relative overflow-hidden bg-gradient-to-r from-[#020B1A] via-[#051833] to-[#020D22]">
-          {/* Luminous Golden Waves & Royal Blue Satin Ribbon Background */}
-          <div className="absolute inset-0 pointer-events-none">
+        <div className="relative bg-gradient-to-r from-[#020B1A] via-[#051833] to-[#020D22]">
+          {/* Luminous Golden Waves & Royal Blue Satin Ribbon Background - Visible on desktop only to keep mobile header clean and prevent overlapping the logo */}
+          <div className="hidden lg:block absolute inset-0 pointer-events-none overflow-hidden">
             <img
               src="/navbar-bg-royal-gold.png"
               alt=""
@@ -107,19 +119,25 @@ export const Navbar: React.FC = () => {
 
               {/* Tours Dropdown */}
               <div
+                ref={dropdownRef}
                 className="relative"
                 onMouseEnter={() => setToursDropdownOpen(true)}
                 onMouseLeave={() => setToursDropdownOpen(false)}
               >
-                <button className="flex items-center gap-1.5 text-white/95 hover:text-amber-300 font-semibold transition py-2">
+                <button
+                  type="button"
+                  onClick={() => setToursDropdownOpen((prev) => !prev)}
+                  className="flex items-center gap-1.5 text-white/95 hover:text-amber-300 font-semibold transition py-2"
+                >
                   <span>Tours</span>
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform ${toursDropdownOpen ? 'rotate-180 text-amber-300' : ''}`} />
                 </button>
 
                 {toursDropdownOpen && (
-                  <div className="absolute top-full left-0 w-72 bg-[#020B1A]/95 backdrop-blur-xl border border-amber-400/40 rounded-xl shadow-2xl p-3 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="absolute top-full left-0 w-72 bg-[#020B1A]/95 backdrop-blur-xl border border-amber-400/40 rounded-xl shadow-2xl p-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                     <Link
                       to="/tours"
+                      onClick={() => setToursDropdownOpen(false)}
                       className="block p-2.5 rounded-lg bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-bold mb-2 hover:opacity-95 transition text-sm shadow-md"
                     >
                       View All 25 Tours & Packages →
@@ -129,6 +147,7 @@ export const Navbar: React.FC = () => {
                         <Link
                           key={cat.id}
                           to={`/tours/category/${cat.slug}`}
+                          onClick={() => setToursDropdownOpen(false)}
                           className="block px-3 py-2 rounded-md text-slate-200 hover:text-amber-300 hover:bg-white/10 font-medium transition"
                         >
                           {cat.name}
