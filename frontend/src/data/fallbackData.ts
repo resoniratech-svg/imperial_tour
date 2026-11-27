@@ -3005,16 +3005,8 @@ export const FALLBACK_TOURS: Tour[] = ([
         "id": "grand-doha-img-3",
         "tourId": "ecf344d2-0d8e-4527-b681-5f9c181f55ed",
         "url": "/tours/grand-doha-city-tour-3.jpg",
-        "alt": "Evening rooftop lounge dining with panoramic city skyline views",
-        "sortOrder": 2,
-        "createdAt": "2026-11-25T10:00:00.000Z"
-      },
-      {
-        "id": "grand-doha-img-4",
-        "tourId": "ecf344d2-0d8e-4527-b681-5f9c181f55ed",
-        "url": "/tours/grand-doha-city-tour-4.jpg",
         "alt": "Stunning sunset view of Doha West Bay modern towers from the Corniche",
-        "sortOrder": 3,
+        "sortOrder": 2,
         "createdAt": "2026-11-25T10:00:00.000Z"
       }
     ]
