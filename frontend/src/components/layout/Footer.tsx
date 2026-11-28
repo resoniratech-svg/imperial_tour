@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
   const { settings } = useSelector((state: RootState) => state.settings);
   const { categories } = useSelector((state: RootState) => state.tours);
 
-  const phone = settings.phone || '';
+  const phone = settings.phone || '+974 3374 5324';
   const email = settings.email || 'info@imperialhospitality.com.qa';
   const address = settings.address || '';
 

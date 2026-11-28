@@ -50,7 +50,7 @@ export const ContactUsPage: React.FC = () => {
     }
   };
 
-  const cleanWhatsApp = (settings.whatsapp || '').replace(/[^0-9]/g, '');
+  const cleanWhatsApp = (settings.whatsapp || '+974 3374 5324').replace(/[^0-9]/g, '');
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] pt-24 pb-20">
